@@ -5,9 +5,9 @@ function App() {
  Axios({
     method: "GET",
     url: "http://localhost:5000/",
-    // headers: {
-    //   "Content-Type": "application/json"
-    // }
+     headers: {
+       "Content-Type": "application/json"
+     }
   }).then(res => {
     console.log(res.data.message);
   });
