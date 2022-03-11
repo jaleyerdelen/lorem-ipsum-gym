@@ -22,18 +22,6 @@ function App() {
     allCourse();
   }, []);
 
-  const Cat = () => {
-    axios
-      .get("http://localhost:5000/category")
-      .then((res) => {
-        console.log(res.data.courses);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    return <h2>hello</h2>;
-  };
-
   return (
     <>
       <div>
@@ -47,10 +35,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route exact path="/home" element={<Home />} />
-          <Route
-            path="category"
-            element={<Category name="world" Cat={Cat} />}
-          />
+          <Route path="/category" element={<Category />} />
         </Routes>
       </BrowserRouter>
     </>
