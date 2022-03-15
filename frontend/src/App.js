@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Category from "./components/Category";
+import Register from "./components/Register"
 
 function Home() {
   return <h2>jale's page</h2>;
@@ -36,6 +37,7 @@ function App() {
         <Routes>
           <Route exact path="/home" element={<Home />} />
           <Route path="/category" element={<Category />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
       </BrowserRouter>
     </>
