@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const CourseSchema = new Schema({
+const CategorySchema = new Schema({
   name: {
     type: "string",
     required: true,
@@ -17,5 +17,5 @@ const CourseSchema = new Schema({
   },
 });
 
-const Course = mongoose.model("Course", CourseSchema);
-module.exports = Course;
+const Category = mongoose.model("Category", CategorySchema);
+module.exports = Category;
