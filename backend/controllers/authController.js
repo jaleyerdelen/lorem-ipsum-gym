@@ -1,12 +1,19 @@
 const User = require("../models/User");
+const bcrypt = require("bcrypt");
 
 exports.createUser = async (req, res) => {
   try {
-    const user = await User.create(req.body);
-    res.status(200).json({
-      status: "success",
-      user,
-    });
+    const { name, password, email } = req.body;
+    console.log(name);
+
+    if (!(email && password && name)) {
+      return res.status(400).send({ error: "Data not formatted properly" });
+    }
+    const user = await User.create({ name, email, password });
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(user.password, salt);
+    await user.save();
+    res.status(201).json({ message: `${name} created` });
   } catch (error) {
     res.status(400).json({
       status: "error",
@@ -26,6 +33,33 @@ exports.getAllUser = async (req, res) => {
     res.status(400).json({
       status: "fail",
       error,
+    });
+  }
+};
+
+exports.loginUser = (req, res) => {
+  try {
+    const { email, password } = req.body;
+    User.findOne({ email }, (err, user) => {
+      if (user) {
+        bcrypt.compare(password, user.password, (err, same) => {
+          console.log(same);
+          if (same) {
+            //user session
+            req.session.userID = user._id;
+            res.status(200).json({ message: "here" });
+          } else {
+            res.status(404).json({ message: "not found" });
+          }
+        });
+      } else {
+        res.status(200).json({ message: "user not found" });
+      }
+    });
+  } catch (error) {
+    res.status(200).json({
+      status: "fail",
+      error: error,
     });
   }
 };

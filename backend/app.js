@@ -1,9 +1,12 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const session = require("express-session");
+require("dotenv").config();
 
 const courseRoute = require("./routes/courseRoute");
 const categoryRoute = require("./routes/categoryRoute");
 const userRoute = require("./routes/userRoute");
+const loginRoute = require("./routes/loginRoute");
 
 const PORT = process.env.PORT || 5000;
 
@@ -18,11 +21,12 @@ app.use(express.urlencoded({ extended: true })); // for parsing application/x-ww
 app.use(
   cors({
     origin: "*",
-    headers: { "Access-Control-Allow-Origin": "*" ,
-     "Access-Control-Allow-Methods" : ['HEAD, GET, POST, PUT, PATCH, DELETE, OPTIONS'] 
-  
-  },
-    
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": [
+        "HEAD, GET, POST, PUT, PATCH, DELETE, OPTIONS",
+      ],
+    },
   })
 );
 
@@ -43,10 +47,19 @@ mongoose
     console.log(err);
   });
 
+app.use(
+  session({
+    secret: "my_keyboard_cat",
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+
 //Routes
 app.use("/courses", courseRoute);
-app.use("/category", categoryRoute)
-app.use("/users", userRoute)
+app.use("/category", categoryRoute);
+app.use("/users", userRoute);
+app.use("/login", loginRoute);
 
 app.get("/", (req, res) => {
   res.send({ message: "we did it" });
@@ -55,7 +68,6 @@ app.get("/", (req, res) => {
 app.get("/category", (req, res) => {
   res.send({ category: "yeey" });
 });
-
 
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
