@@ -8,6 +8,7 @@ const categoryRoute = require("./routes/categoryRoute");
 const userRoute = require("./routes/userRoute");
 const loginRoute = require("./routes/loginRoute");
 
+
 const PORT = process.env.PORT || 5000;
 
 const app = express();
@@ -57,6 +58,7 @@ app.use(
 
 //Routes
 app.use("/courses", courseRoute);
+
 app.use("/category", categoryRoute);
 app.use("/users", userRoute);
 app.use("/login", loginRoute);
@@ -68,6 +70,7 @@ app.get("/", (req, res) => {
 app.get("/category", (req, res) => {
   res.send({ category: "yeey" });
 });
+
 
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);

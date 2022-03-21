@@ -4,7 +4,6 @@ const bcrypt = require("bcrypt");
 exports.createUser = async (req, res) => {
   try {
     const { name, password, email } = req.body;
-    console.log(name);
 
     if (!(email && password && name)) {
       return res.status(400).send({ error: "Data not formatted properly" });
@@ -43,7 +42,6 @@ exports.loginUser = (req, res) => {
     User.findOne({ email }, (err, user) => {
       if (user) {
         bcrypt.compare(password, user.password, (err, same) => {
-          console.log(same);
           if (same) {
             //user session
             req.session.userID = user._id;
