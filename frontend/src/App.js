@@ -1,48 +1,23 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import Home from "./components/Home";
 import Category from "./components/Category";
 import Register from "./components/Register";
 import Login from "./components/Login";
 
-function Home() {
-  return <h2>jale's page</h2>;
-}
+import CourseDetail from "./pages_detail/CourseDetail"
 
 function App() {
-  const [courses, setCourses] = useState([""]);
-
-  useEffect(() => {
-    const allCourse = () => {
-      axios
-        .get("http://localhost:5000/courses")
-        .then((res) => setCourses(res.data.courses))
-        .catch((err) => console.log(err));
-    };
-
-    allCourse();
-  }, []);
-
   return (
-    <>
-      <div>
-        {courses.map((course) => (
-          <div>
-            {course.name}
-            <h2>{course.description}</h2>
-          </div>
-        ))}
-      </div>
-      <BrowserRouter>
-        <Routes>
-          <Route exact path="/home" element={<Home />} />
-          <Route path="/category" element={<Category />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-        </Routes>
-      </BrowserRouter>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route exact path="/" element={<Home />} />
+        <Route path="/category" element={<Category />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/courses/:id" element={<CourseDetail />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

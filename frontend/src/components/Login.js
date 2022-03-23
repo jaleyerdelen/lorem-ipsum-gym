@@ -1,9 +1,9 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [register, setRegister] = useState([]);
-  const [name, setName] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
@@ -63,7 +63,9 @@ const Login = () => {
           />
         </div>
       </div>
+      <Link to="/">
       <input type="submit" value="Submit" />
+      </Link>
     </form>
   );
 };
