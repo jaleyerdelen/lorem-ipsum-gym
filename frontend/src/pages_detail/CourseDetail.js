@@ -10,7 +10,9 @@ const CourseDetail = () => {
     const allCourse = () => {
       axios
         .get(`http://localhost:5000/courses/${id}`)
+        .then((res) => console.log(res.data.course))
         .then((res) => setCourse(res.data.course))
+        
         .catch((err) => console.log(err));
     };
 

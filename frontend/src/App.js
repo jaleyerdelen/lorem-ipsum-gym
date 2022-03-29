@@ -6,6 +6,7 @@ import Register from "./components/Register";
 import Login from "./components/Login";
 
 import CourseDetail from "./pages_detail/CourseDetail"
+import CategoryDetail from "./pages_detail/CategoryDetail";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/courses/:id" element={<CourseDetail />} />
+        <Route path="/category/:id" element={<CategoryDetail />} />
       </Routes>
     </BrowserRouter>
   );
