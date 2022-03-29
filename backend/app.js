@@ -56,9 +56,10 @@ app.use(
   })
 );
 
+
+
 //Routes
 app.use("/courses", courseRoute);
-
 app.use("/category", categoryRoute);
 app.use("/users", userRoute);
 app.use("/login", loginRoute);
@@ -67,9 +68,9 @@ app.get("/", (req, res) => {
   res.send({ message: "we did it" });
 });
 
-app.get("/category", (req, res) => {
-  res.send({ category: "yeey" });
-});
+// app.get("/category", (req, res) => {
+//   res.send({ category: "yeey" });
+// });
 
 
 app.listen(PORT, () => {

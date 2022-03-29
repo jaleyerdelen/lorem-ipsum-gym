@@ -45,6 +45,7 @@ exports.loginUser = (req, res) => {
           if (same) {
             //user session
             req.session.userID = user._id;
+            console.log(req.session.userID)
             res.status(200).json({ message: "here" });
           } else {
             res.status(404).json({ message: "not found" });
