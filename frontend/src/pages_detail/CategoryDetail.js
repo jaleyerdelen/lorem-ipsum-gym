@@ -4,18 +4,18 @@ import { useParams } from "react-router-dom";
 
 const CategoryDetail = () => {
   const [categor, setCategor] = useState([""]);
-  const { id } = useParams();
+  const { slug } = useParams();
 
   useEffect(() => {
     const allCategor = () => {
       axios
-        .get(`http://localhost:5000/category/${id}`)
+        .get(`http://localhost:5000/category/${slug}`)
         .then((res) => setCategor(res.data.category))
         .catch((err) => console.log(err));
     };
 
     allCategor();
-  }, [id]);
+  }, [slug]);
 
   return <div>{categor.name}</div>;
 };

@@ -20,7 +20,7 @@ const Home = () => {
         {courses.map((course) => {
           return (
             <div>
-              <Link to={`courses/${course._id}`}>
+              <Link to={`courses/${course.slug}`}>
                 <h2>{course.name}</h2>
               </Link>
             </div>

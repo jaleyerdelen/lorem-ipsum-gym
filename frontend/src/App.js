@@ -16,8 +16,8 @@ function App() {
         <Route path="/category" element={<Category />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/courses/:id" element={<CourseDetail />} />
-        <Route path="/category/:id" element={<CategoryDetail />} />
+        <Route path="/courses/:slug" element={<CourseDetail />} />
+        <Route path="/category/:slug" element={<CategoryDetail />} />
       </Routes>
     </BrowserRouter>
   );

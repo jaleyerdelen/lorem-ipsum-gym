@@ -18,13 +18,12 @@ const Category = () => {
 
   return (
     <div>
-      <h2>jale</h2>
       {category.map((categor) => {
         return (
           <div>
-            <Link to={`/category/${categor._id}`}>
+            <Link to={`/category/${categor.slug}`}>
               <h1>{categor.name}</h1>
-              <h2>{categor.description}</h2>
+              {/* <h2>{categor.description}</h2> */}
             </Link>
           </div>
         );
