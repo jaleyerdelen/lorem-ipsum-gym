@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
+
 const Login = () => {
   const [register, setRegister] = useState([]);
   const [email, setEmail] = useState();
@@ -15,15 +16,18 @@ const Login = () => {
   const log = () => {
     axios({
       method: "post",
-      url: "http://localhost:5000/login",
+      url: "http://localhost:5000/auth/login",
       data: {
         email: email,
         password: password,
       },
     })
-      .then((res) => {
-        setRegister(res.data.user);
+     .then((res) => {
+        console.log(res);
       })
+      // .then((res) => {
+      //   setRegister(res.data.user);
+      // })
       .catch((err) => {
         console.log(err);
       });
@@ -63,9 +67,9 @@ const Login = () => {
           />
         </div>
       </div>
-      <Link to="/">
+      {/* <Link to="/"> */}
       <input type="submit" value="Submit" />
-      </Link>
+      {/* </Link> */}
     </form>
   );
 };
