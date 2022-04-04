@@ -31,16 +31,22 @@ exports.getAllCourses = async (req, res) => {
 };
 
 exports.getCourse = async (req, res) => {
-  try {
-    const course = await Course.findOne({slug: req.params.slug});
+  if (req.session.userID !== undefined) {
+    try {
+      const course = await Course.findOne({ slug: req.params.slug });
+      res.status(200).json({
+        status: "success course detail",
+        course,
+      });
+    } catch (error) {
+      res.status(400).json({
+        status: "failed",
+        error,
+      });
+    }
+  } else {
     res.status(200).json({
-      status: "success course detail",
-      course,
-    });
-  } catch (error) {
-    res.status(400).json({
-      status: "failed",
-      error,
+      message: "you need to login",
     });
   }
 };

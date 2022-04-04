@@ -1,12 +1,15 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const session = require("express-session");
+const MongoStore = require("connect-mongo");
+const cookieParser = require('cookie-parser');
+
 require("dotenv").config();
 
 const courseRoute = require("./routes/courseRoute");
 const categoryRoute = require("./routes/categoryRoute");
 const userRoute = require("./routes/userRoute");
-const loginRoute = require("./routes/loginRoute");
+const authRoute = require("./routes/authRoute");
 
 
 const PORT = process.env.PORT || 5000;
@@ -15,9 +18,12 @@ const app = express();
 
 const cors = require("cors");
 
+
+
 //middlewares
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+app.use(cookieParser())
 
 app.use(
   cors({
@@ -28,6 +34,7 @@ app.use(
         "HEAD, GET, POST, PUT, PATCH, DELETE, OPTIONS",
       ],
     },
+    allowedHeaders: ["sessionId", "Content-Type"]
   })
 );
 
@@ -53,6 +60,9 @@ app.use(
     secret: "my_keyboard_cat",
     resave: false,
     saveUninitialized: true,
+    store: MongoStore.create({mongoUrl:"mongodb+srv://jale:9876598765@cluster0.g8s8b.mongodb.net/lorem-ipsum-gym?retryWrites=true&w=majority"}),
+    cookie:{}
+      
   })
 );
 
@@ -62,11 +72,16 @@ app.use(
 app.use("/courses", courseRoute);
 app.use("/category", categoryRoute);
 app.use("/users", userRoute);
-app.use("/login", loginRoute);
+app.use("/auth", authRoute);
 
 app.get("/", (req, res) => {
   res.send({ message: "we did it" });
 });
+
+
+
+
+
 
 // app.get("/category", (req, res) => {
 //   res.send({ category: "yeey" });

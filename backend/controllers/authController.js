@@ -46,7 +46,10 @@ exports.loginUser = (req, res) => {
             //user session
             req.session.userID = user._id;
             console.log(req.session.userID)
-            res.status(200).json({ message: "here" });
+            res.status(200).json({ message: "here" ,
+            session: req.session.userID
+          });
+            
           } else {
             res.status(404).json({ message: "not found" });
           }
@@ -61,4 +64,15 @@ exports.loginUser = (req, res) => {
       error: error,
     });
   }
+};
+
+exports.logoutUser = (req, res) => {
+  console.log(req.session);
+  req.session.destroy(()=> {
+    res.status(200).json({
+      status: "success",
+      message: "Logout success",
+    });
+  })
+  ;
 };
