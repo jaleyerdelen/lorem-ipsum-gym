@@ -21,6 +21,7 @@ const Login = () => {
         email: email,
         password: password,
       },
+    withCredentials: true,
     })
      .then((res) => {
         console.log(res);

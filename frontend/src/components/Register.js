@@ -54,7 +54,7 @@ const Register = () => {
         setEmail(e.target.value);
       }}
 
-      type="text" readonly className="form-control" id="staticEmail" />
+      type="text" readonly value={email} className="form-control" id="staticEmail" />
     </div>
   </div>
   <div className="mb-3 row">
@@ -64,7 +64,7 @@ const Register = () => {
       onChange={(e)=>{
         setPassword(e.target.value)
       }}
-       type="current-password" name="password" id="password" className="form-control"/>
+       type="current-password" value={password} name="password" id="password" className="form-control"/>
     </div>
   </div>
   <input type="submit" value="Submit" />
