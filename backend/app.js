@@ -3,13 +3,15 @@ const mongoose = require("mongoose");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
 const cookieParser = require('cookie-parser');
-
+const jwt = require("jsonwebtoken");
+const JWT_SECRET = process.env.JWT_SECRET;
 require("dotenv").config();
 
 const courseRoute = require("./routes/courseRoute");
 const categoryRoute = require("./routes/categoryRoute");
 const userRoute = require("./routes/userRoute");
 const authRoute = require("./routes/authRoute");
+
 
 
 const PORT = process.env.PORT || 5000;
@@ -28,6 +30,7 @@ app.use(cookieParser())
 app.use(
   cors({
     origin: "*",
+    credentials: true,
     headers: {
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Methods": [
@@ -55,18 +58,23 @@ mongoose
     console.log(err);
   });
 
-app.use(
-  session({
-    secret: "my_keyboard_cat",
-    resave: false,
-    saveUninitialized: true,
-    store: MongoStore.create({mongoUrl:"mongodb+srv://jale:9876598765@cluster0.g8s8b.mongodb.net/lorem-ipsum-gym?retryWrites=true&w=majority"}),
-    cookie:{}
+// app.use(
+//   session({
+//     secret: "my_keyboard_cat",
+//     resave: false,
+//     saveUninitialized: true,
+//     store: MongoStore.create({mongoUrl:"mongodb+srv://jale:9876598765@cluster0.g8s8b.mongodb.net/lorem-ipsum-gym?retryWrites=true&w=majority"}),
+//     cookie:{}
       
-  })
-);
+//   })
+// );
 
-
+// app.get('/jwt', (req, res) => {
+//   const token = jwt.sign({ user: 'johndoe' }," JWT_SECRET");
+//   res.cookie('token', token, { httpOnly: true });
+//   res.json({ token });
+//   console.log("appdeki token",token)
+// });
 
 //Routes
 app.use("/courses", courseRoute);
@@ -75,7 +83,8 @@ app.use("/users", userRoute);
 app.use("/auth", authRoute);
 
 app.get("/", (req, res) => {
-  res.send({ message: "we did it" });
+  console.log(req.cookies)
+  res.send("hello world")
 });
 
 
