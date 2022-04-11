@@ -1,9 +1,8 @@
 import axios from "axios";
 import React, { useState } from "react";
 
-const Logout = () => {
-  const [logout, setLogout] = useState([""]);
-
+const Logout = ({token}) => {
+ console.log(token)
   const log = () => {
     console.log("buttona tıklandı");
     axios
@@ -12,7 +11,16 @@ const Logout = () => {
       .catch((err) => console.log(err));
   };
 
-  return <button onClick={()=>log()}>Logout</button>;
+
+
+  return (
+    <div>
+        
+    <button onClick={()=>log()}>Logout</button>;
+    </div>
+  
+  )
+   
 };
 
 export default Logout;

@@ -4,9 +4,12 @@ import { Link } from "react-router-dom";
 
 
 const Login = () => {
-  const [register, setRegister] = useState([]);
+
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+   const [token, setToken] = useState("")
+
+   
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -24,14 +27,24 @@ const Login = () => {
     withCredentials: true,
     })
      .then((res) => {
-        console.log(res);
+        setToken(res.data.token);
+        console.log(res.data.token)
       })
-      // .then((res) => {
-      //   setRegister(res.data.user);
-      // })
+      
       .catch((err) => {
         console.log(err);
       });
+
+      
+
+  };
+  const getSecret = () => {
+    console.log("buttona tıklandı");
+    axios
+      .get("http://localhost:5000/auth/secure", 
+      {headers: {"authorization":  `Baerer ${token}` } })
+      .then((res) => console.log("secret",res))
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -71,6 +84,7 @@ const Login = () => {
       {/* <Link to="/"> */}
       <input type="submit" value="Submit" />
       {/* </Link> */}
+      <button onClick={()=>getSecret()}>Secret</button>; 
     </form>
   );
 };
