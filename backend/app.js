@@ -1,8 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const session = require("express-session");
-const MongoStore = require("connect-mongo");
 const cookieParser = require("cookie-parser");
+
 const jwt = require("jsonwebtoken");
 const JWT_SECRET = process.env.JWT_SECRET;
 require("dotenv").config();
@@ -12,11 +11,15 @@ const categoryRoute = require("./routes/categoryRoute");
 const userRoute = require("./routes/userRoute");
 const authRoute = require("./routes/authRoute");
 
+
+
+
 const PORT = process.env.PORT || 5000;
 
 const app = express();
 
 const cors = require("cors");
+const router = require("./routes/authRoute");
 
 //middlewares
 app.use(express.json()); // for parsing application/json
@@ -60,10 +63,17 @@ app.use("/category", categoryRoute);
 app.use("/users", userRoute);
 app.use("/auth", authRoute);
 
+
+
+
+
+
 app.get("/", (req, res) => {
-  console.log(req.cookies);
+  console.log(req.headers["authorization"]);
   res.send("hello world");
 });
+
+
 
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);

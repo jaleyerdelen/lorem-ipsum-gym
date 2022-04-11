@@ -1,12 +1,11 @@
+const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
 
 const JWT_SECRET = process.env.JWT_SECRET;
 const JWT_EXPIRES = process.env.JWT_EXPIRES;
 const JWT_EXPIRATION_NUM = process.env.JWT_EXPIRATION_NUM;
 const NODE_ENV = process.env.NODE_ENV;
-
 
 const sendToken = (user, req, res) => {
   const token = jwt.sign({ id: user._id, name: user.name }, JWT_SECRET, {
@@ -81,4 +80,22 @@ exports.logoutUser = async (req, res) => {
   };
   res.cookie("jwt", "expiredtoken", options);
   res.status(200).json({ status: "success" });
+};
+
+exports.secure = async (req, res, next) => {
+  const authHeader = req.headers["authorization"];
+  console.log("headers", req.headers);
+  const token = authHeader && authHeader.split(" ")[1]; 
+  try {
+    const test = jwt.verify(token, JWT_SECRET);
+    console.log("test",test)
+    return res.status(200).json({
+      message: "hello",
+      test
+    });
+  } catch (error) {
+    res.status(200).json({
+      error,
+    });
+  }
 };
