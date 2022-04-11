@@ -1,13 +1,13 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-
+import cookie from "react-cookies";
 
 const Login = () => {
 
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-   const [token, setToken] = useState("")
+
 
    
 
@@ -23,11 +23,10 @@ const Login = () => {
       data: {
         email: email,
         password: password,
-      },
-    withCredentials: true,
-    })
+      }
+        })
      .then((res) => {
-        setToken(res.data.token);
+       cookie.save("token", res.data.token)
         console.log(res.data.token)
       })
       
@@ -42,7 +41,7 @@ const Login = () => {
     console.log("buttona tıklandı");
     axios
       .get("http://localhost:5000/auth/secure", 
-      {headers: {"authorization":  `Baerer ${token}` } })
+      {headers: {"authorization":  `Baerer ${"token"}` } })
       .then((res) => console.log("secret",res))
       .catch((err) => console.log(err));
   };
