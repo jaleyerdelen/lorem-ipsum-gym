@@ -81,21 +81,3 @@ exports.logoutUser = async (req, res) => {
   res.cookie("jwt", "expiredtoken", options);
   res.status(200).json({ status: "success" });
 };
-
-exports.secure = async (req, res, next) => {
-  const authHeader = req.headers["authorization"];
-  console.log("headers", req.headers);
-  const token = authHeader && authHeader.split(" ")[1]; 
-  try {
-    const test = jwt.verify(token, JWT_SECRET);
-    console.log("test",test)
-    return res.status(200).json({
-      message: "hello",
-      test
-    });
-  } catch (error) {
-    res.status(200).json({
-      error,
-    });
-  }
-};
