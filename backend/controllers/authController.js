@@ -23,7 +23,7 @@ exports.createUser = async (req, res) => {
     const { name, password, email } = req.body;
     // console.log(email)
     if (!(email && password && name)) {
-      return res.status(400).send({ error: "Data not formatted properly" });
+      return res.status(200).send({ error: "Data not formatted properly" });
     }
     const user = await User.create({ name, email, password });
 
@@ -48,7 +48,7 @@ exports.getAllUser = async (req, res) => {
       user,
     });
   } catch (error) {
-    res.status(400).json({
+    res.status(200).json({
       status: "fail",
       error,
     });
@@ -62,7 +62,7 @@ exports.loginUser = (req, res) => {
       const compared = bcrypt.compare(password, user.password);
       compared
         ? sendToken(user, req, res)
-        : res.status(400).json({ message: "login failed" });
+        : res.status(200).json({ message: "login failed" });
     });
   } catch (error) {
     res.status(200).json({
@@ -79,5 +79,7 @@ exports.logoutUser = async (req, res) => {
     httpOnly: NODE_ENV === "prodution" ? true : false,
   };
   res.cookie("jwt", "expiredtoken", options);
-  res.status(200).json({ status: "success" });
+  res.status(200).json({
+     status: "success"
+     });
 };

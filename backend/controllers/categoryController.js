@@ -6,7 +6,7 @@ exports.createCategory = async (req, res) => {
     res.status(200).json(category);
     console.log(category);
   } catch (error) {
-    res.status(400).json({
+    res.status(200).json({
       status: "fail",
       error,
     });
@@ -21,7 +21,7 @@ exports.getAllCategory = async (req, res) => {
       category,
     });
   } catch (error) {
-    res.status(400).json({
+    res.status(200).json({
       status: "fail",
       error,
     });
@@ -36,7 +36,7 @@ exports.getCategory = async (req, res) => {
       category,
     });
   } catch (error) {
-    res.status(400).json({
+    res.status(200).json({
       status: "fail",
       error,
     });
