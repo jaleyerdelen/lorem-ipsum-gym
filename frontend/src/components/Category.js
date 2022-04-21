@@ -8,7 +8,7 @@ const Category = () => {
 
   const axe = () => {
     const token = cookie.load("token");
-    console.log(token);
+    console.log("fe",token);
     axios
       .get("http://localhost:5000/category", {
         headers: { authorization: `Baerer ${token}` },
