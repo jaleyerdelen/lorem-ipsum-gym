@@ -3,14 +3,19 @@ const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
   name: {
-    type: "string",
+    type: String,
   },
   email: {
-    type: "string",
+    type: String,
   },
   password: {
-    type: "string",
+    type: String,
   },
+  role: {
+    type: String,
+    enum:["student", "teacher", "admin"],
+    default: "student"
+  }
 });
 
 const User = mongoose.model("User", UserSchema);

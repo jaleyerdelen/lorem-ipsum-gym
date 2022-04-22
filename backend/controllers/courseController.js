@@ -1,6 +1,6 @@
 const Course = require("../models/Course");
 
-exports.createCourse = async (req, res) => {
+exports.createCourse = async (req, res, user) => {
   const course = await Course.create(req.body);
   try {
     res.status(201).json({
@@ -31,22 +31,16 @@ exports.getAllCourses = async (req, res) => {
 };
 
 exports.getCourse = async (req, res) => {
-  if (req.session.userID !== undefined) {
-    try {
-      const course = await Course.findOne({ slug: req.params.slug });
-      res.status(200).json({
-        status: "success course detail",
-        course,
-      });
-    } catch (error) {
-      res.status(400).json({
-        status: "failed",
-        error,
-      });
-    }
-  } else {
+  try {
+    const course = await Course.findOne({ slug: req.params.slug });
     res.status(200).json({
-      message: "you need to login",
+      status: "success course detail",
+      course,
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: "failed",
+      error,
     });
   }
 };

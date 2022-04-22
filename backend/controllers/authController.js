@@ -7,31 +7,34 @@ const JWT_EXPIRES = process.env.JWT_EXPIRES;
 const JWT_EXPIRATION_NUM = process.env.JWT_EXPIRATION_NUM;
 const NODE_ENV = process.env.NODE_ENV;
 
-const sendToken = (user, req, res) => {
+const sendToken = (user, statusCode, req, res) => {
   const token = jwt.sign({ id: user._id, name: user.name }, JWT_SECRET, {
     expiresIn: JWT_EXPIRES,
   });
   res.cookie("jwt", token, { httpOnly: true });
-  res.status(200).json({
+  res.status(statusCode).json({
     status: "success",
     token,
+    user,
   });
 };
 
 exports.createUser = async (req, res) => {
   try {
-    const { name, password, email } = req.body;
-    // console.log(email)
+    const { name, password, email, role } = req.body;
     if (!(email && password && name)) {
       return res.status(200).send({ error: "Data not formatted properly" });
     }
-    const user = await User.create({ name, email, password });
+    const user = await User.create({ name, email, password, role });
+    console.log("user", user);
 
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(user.password, salt);
     await user.save();
-    // res.status(200).json({ message: `${name} created` });
     sendToken(user, 200, req, res);
+    //  res.status(200).json({
+    //    message: "User saved successfully",
+    //  })
   } catch (error) {
     res.status(200).json({
       status: "error",
@@ -58,10 +61,11 @@ exports.getAllUser = async (req, res) => {
 exports.loginUser = (req, res) => {
   try {
     const { email, password } = req.body;
+    console.log(req.body);
     User.findOne({ email }, (err, user) => {
       const compared = bcrypt.compare(password, user.password);
       compared
-        ? sendToken(user, req, res)
+        ? sendToken(user, 200, req, res)
         : res.status(200).json({ message: "login failed" });
     });
   } catch (error) {
@@ -80,6 +84,19 @@ exports.logoutUser = async (req, res) => {
   };
   res.cookie("jwt", "expiredtoken", options);
   res.status(200).json({
-     status: "success"
-     });
+    status: "success",
+  });
+};
+
+exports.userRole = (...userRole) => {
+  return (req, res, next) => {
+    userRole.includes(req.user.role)
+      ? // console.log( userRole.includes(req.user.role))
+        // console.log("requser",req.user.role)
+        next()
+      : res.status(200).json({
+          status: "unauthorizee",
+          message: "You are not allowed to",
+        });
+  };
 };

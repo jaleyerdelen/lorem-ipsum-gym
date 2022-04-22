@@ -8,5 +8,4 @@ router.route("/").get(authController.getAllUser);
 
 
 
-
 module.exports = router;

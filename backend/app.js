@@ -11,7 +11,6 @@ const categoryRoute = require("./routes/categoryRoute");
 const userRoute = require("./routes/userRoute");
 const authRoute = require("./routes/authRoute");
 
-
 const authMiddleware = require("./middleware/authMiddleware")
 
 const PORT = process.env.PORT || 5000;
@@ -58,13 +57,10 @@ mongoose
   });
 
 //Routes
-app.use("/courses", courseRoute);
+app.use("/courses", authMiddleware.secure, courseRoute);
 app.use("/category", authMiddleware.secure , categoryRoute);
 app.use("/users", userRoute);
 app.use("/auth", authRoute);
-
-
-
 
 
 
