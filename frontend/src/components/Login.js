@@ -4,12 +4,9 @@ import { Link } from "react-router-dom";
 import cookie from "react-cookies";
 
 const Login = () => {
-
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-
-
-   
+  const [role, setRole] = useState();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -23,27 +20,16 @@ const Login = () => {
       data: {
         email: email,
         password: password,
-      }
-        })
-     .then((res) => {
-       cookie.save("token", res.data.token)
-        console.log(res.data.token)
+      },
+    })
+      .then((res) => {
+        cookie.save("token", res.data.token);
+        console.log(res);
       })
-      
+
       .catch((err) => {
         console.log(err);
       });
-
-      
-
-  };
-  const getSecret = () => {
-    console.log("buttona tıklandı");
-    axios
-      .get("http://localhost:5000/auth/secure", 
-      {headers: {"authorization":  `Baerer ${"token"}` } })
-      .then((res) => console.log("secret",res))
-      .catch((err) => console.log(err));
   };
 
   return (
@@ -83,7 +69,6 @@ const Login = () => {
       {/* <Link to="/"> */}
       <input type="submit" value="Submit" />
       {/* </Link> */}
-      <button onClick={()=>getSecret()}>Secret</button>; 
     </form>
   );
 };

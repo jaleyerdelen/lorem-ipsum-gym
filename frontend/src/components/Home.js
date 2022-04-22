@@ -1,13 +1,17 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import cookie from "react-cookies";
 
 const Home = () => {
   const [courses, setCourses] = useState([""]);
   useEffect(() => {
     const allCourse = () => {
+      const token = cookie.load("token");
       axios
-        .get("http://localhost:5000/courses/")
+        .get("http://localhost:5000/courses/", {
+          headers: { authorization: `Baerer ${token}` },
+        })
         .then((res) => setCourses(res.data.courses))
         .catch((err) => console.log(err));
     };
