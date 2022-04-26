@@ -91,11 +91,10 @@ exports.logoutUser = async (req, res) => {
 exports.userRole = (...userRole) => {
   return (req, res, next) => {
     userRole.includes(req.user.role)
-      ? // console.log( userRole.includes(req.user.role))
-        // console.log("requser",req.user.role)
+      ?
         next()
       : res.status(200).json({
-          status: "unauthorizee",
+          status: "unauthorize",
           message: "You are not allowed to",
         });
   };
