@@ -6,9 +6,11 @@ import Category from "./components/Category";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import Logout from "./components/Logout";
+import TeacherDashboard from "./components/TeacherDashboard";
 
 import CourseDetail from "./pages_detail/CourseDetail"
 import CategoryDetail from "./pages_detail/CategoryDetail";
+
 
 function App() {
 
@@ -23,6 +25,8 @@ function App() {
         <Route path="/login" element={<Login   />} />
         <Route path="/logout" element={<Logout  />} />
         <Route path="/courses/:slug" element={<CourseDetail />} />
+        <Route path="/dashboard" element={<TeacherDashboard />} />
+
         <Route path="/category/:slug" element={<CategoryDetail />} />
       </Routes>
     </BrowserRouter>

@@ -3,6 +3,7 @@ import React from "react";
 import cookie from 'react-cookies'
 
 const Logout = () => {
+  
   const log = () => {
     console.log("buttona tıklandı");
     axios

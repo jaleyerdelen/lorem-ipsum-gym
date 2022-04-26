@@ -6,7 +6,6 @@ import cookie from "react-cookies";
 const Login = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const [role, setRole] = useState();
 
   const handleSubmit = (e) => {
     e.preventDefault();
