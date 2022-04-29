@@ -11,6 +11,8 @@ import TeacherDashboard from "./components/TeacherDashboard";
 import CourseDetail from "./pages_detail/CourseDetail"
 import CategoryDetail from "./pages_detail/CategoryDetail";
 
+import Edit from "./components/Edit";
+
 
 function App() {
 
@@ -26,8 +28,10 @@ function App() {
         <Route path="/logout" element={<Logout  />} />
         <Route path="/courses/:slug" element={<CourseDetail />} />
         <Route path="/dashboard" element={<TeacherDashboard />} />
-
         <Route path="/category/:slug" element={<CategoryDetail />} />
+
+        <Route path="/edit/:slug" element={<Edit/>} />
+
       </Routes>
     </BrowserRouter>
   );

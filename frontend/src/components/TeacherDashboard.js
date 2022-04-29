@@ -10,7 +10,24 @@ const TeacherDashboard = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dashboard();
+   // updateCourse()
   };
+
+  //   const updateCourse = () => {
+  //     console.log("updateCourse tıklandı")
+  // const token = cookie.load("token");
+  // axios.put(
+  //    "http://localhost:5000/courses/",
+  //      {
+  //           name: name,
+  //           description: description,
+  //         },
+  //         {
+  //           headers: { authorization: `Baerer ${token}` },
+  //         }
+  // )
+  // .then((res) => setCourses(res.data.course));
+  //   }
 
   const dashboard = () => {
     const token = cookie.load("token");
@@ -30,6 +47,7 @@ const TeacherDashboard = () => {
 
   return (
     <>
+
       <button
         type="button"
         class="btn btn-primary"
@@ -102,8 +120,9 @@ const TeacherDashboard = () => {
                 type="submit"
                 class="btn btn-primary"
               >
-                Description
+                Send
               </button>
+              {/* <button onClick={() =>updateCourse()}type="button" class="btn btn-primary">Update</button>  */}
             </div>
           </div>
         </div>

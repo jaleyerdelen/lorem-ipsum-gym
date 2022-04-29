@@ -4,7 +4,29 @@ import { Link } from "react-router-dom";
 import cookie from "react-cookies";
 
 const Home = () => {
+
+
   const [courses, setCourses] = useState([""]);
+
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+
+  // const updateCourse = () => {
+     
+  // const token = cookie.load("token");
+  // axios.put(
+  //    "http://localhost:5000/courses/",
+  //      {
+  //           name: name,
+  //           description: description,
+  //         },
+  //         {
+  //           headers: { authorization: `Baerer ${token}` },
+  //         }
+  // )
+  // .then((res) => console.log(res.data));
+  //   }
+
   useEffect(() => {
     const allCourse = () => {
       const token = cookie.load("token");
@@ -24,8 +46,11 @@ const Home = () => {
         {courses.map((course) => {
           return (
             <div>
-              <Link to={`courses/${course.slug}`}>
+              <Link  to={`courses/${course.slug}`}>
                 <h2>{course.name}</h2>
+              </Link>
+              <Link to={`edit/${course.slug}`}> 
+              <button  type="button" className="btn btn-primary">update</button>
               </Link>
             </div>
           );
