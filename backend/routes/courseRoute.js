@@ -10,6 +10,8 @@ router.use(authController.userRole("teacher"))
 router.route("/").post(courseController.createCourse);
 router.route("/").get(courseController.getAllCourses);
 router.route("/:slug").get(courseController.getCourse);
+router.route("/:slug").put(courseController.updateCourse);
+
 
 
 
