@@ -1,5 +1,5 @@
 const Course = require("../models/Course");
-const slugify = require('slugify')
+const slugify = require("slugify");
 
 exports.createCourse = async (req, res) => {
   const course = await Course.create(req.body);
@@ -47,17 +47,30 @@ exports.getCourse = async (req, res) => {
 };
 
 exports.updateCourse = async (req, res) => {
+  try {
+    const course = await Course.findOne({ slug: req.params.slug });
+    course.name = req.body.name;
+    course.description = req.body.description;
+    course.save();
+    res.status(200).json({
+      course,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+exports.deleteCourse = async (req, res) => {
 try {
-  const course = await Course.findOne({slug:req.params.slug});
-  console.log("course",req.body);
-course.name =  req.body.name
-course.description = req.body.description
-course.save()
-res.status(200).json({
-   
-    course
-  })
+    const course = await Course.deleteOne({slug: req.params.slug})
+    console.log(req.params)
+    res.status(200).json({
+      course
+    })
 } catch (error) {
-  console.log(error);
+ res.status(200).json({
+    status: 'fail',
+    error
+ })
 }
 }
