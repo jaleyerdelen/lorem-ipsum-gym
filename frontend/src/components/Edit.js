@@ -33,7 +33,6 @@ const Edit = () => {
   };
 
   const updateCourse = () => {
-    console.log("updateCourse tıklandı");
     const token = cookie.load("token");
     axios.put(
       ` http://localhost:5000/courses/${slug}`,
