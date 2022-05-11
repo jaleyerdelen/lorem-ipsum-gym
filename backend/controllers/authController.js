@@ -27,7 +27,6 @@ exports.createUser = async (req, res) => {
     }
     const user = await User.create({ name, email, password, role });
     console.log("user", user);
-
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(user.password, salt);
     await user.save();
@@ -60,13 +59,21 @@ exports.getAllUser = async (req, res) => {
 
 exports.loginUser = (req, res) => {
   try {
-    const { email, password } = req.body;
     console.log(req.body);
+    const { email, password } = req.body;
+
     User.findOne({ email }, (err, user) => {
-      const compared = bcrypt.compare(password, user.password);
-      compared
-        ? sendToken(user, 200, req, res)
-        : res.status(200).json({ message: "login failed" });
+      if (user) {
+        const compared = bcrypt.compare(password, user.password);
+        compared
+          ? sendToken(user, 200, req, res)
+          : res.status(200).json({ message: "login failed" });
+      } else {
+        res.status(200).json({
+          status: "fail",
+          message: "user can not found",
+        });
+      }
     });
   } catch (error) {
     res.status(200).json({
@@ -91,11 +98,33 @@ exports.logoutUser = async (req, res) => {
 exports.userRole = (...userRole) => {
   return (req, res, next) => {
     userRole.includes(req.user.role)
-      ?
-        next()
+      ? next()
       : res.status(200).json({
           status: "unauthorize",
           message: "You are not allowed to",
         });
   };
+};
+
+exports.deleteUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (user) {
+      await User.deleteOne(user);
+      res.status(200).json({
+        message: "deleted user",
+        user,
+      });
+    } else {
+      res.status(200).json({
+        status: "fail",
+        message: "user not found",
+      });
+    }
+  } catch (err) {
+    res.status(200).json({
+      status: "fail",
+      err,
+    });
+  }
 };

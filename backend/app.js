@@ -18,7 +18,7 @@ const PORT = process.env.PORT || 5000;
 const app = express();
 
 const cors = require("cors");
-const router = require("./routes/authRoute");
+
 
 //middlewares
 app.use(express.json()); // for parsing application/json
@@ -59,7 +59,7 @@ mongoose
 //Routes
 app.use("/courses", authMiddleware.secure, courseRoute);
 app.use("/category", authMiddleware.secure , categoryRoute);
-app.use("/users", userRoute);
+app.use("/users",userRoute);
 app.use("/auth", authRoute);
 
 

@@ -1,5 +1,5 @@
 const Course = require("../models/Course");
-const slugify = require("slugify");
+
 
 exports.createCourse = async (req, res) => {
   const course = await Course.create(req.body);
@@ -63,7 +63,6 @@ exports.updateCourse = async (req, res) => {
 exports.deleteCourse = async (req, res) => {
 try {
     const course = await Course.deleteOne({slug: req.params.slug})
-    console.log(req.params)
     res.status(200).json({
       course
     })
