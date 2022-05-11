@@ -19,6 +19,7 @@ const Home = () => {
     allCourse();
   }, []);
 
+  
   const deleteCourse = (course) => {
     console.log("delete course tıklandı");
     const token = cookie.load("token");
@@ -32,6 +33,9 @@ const Home = () => {
       )
       .then((res) => console.log(res.data));
   };
+
+ 
+  
 
   return (
     <>
@@ -54,6 +58,7 @@ const Home = () => {
               >
                 delete
               </button>
+
             </div>
           );
         })}
