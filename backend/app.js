@@ -58,7 +58,7 @@ mongoose
 
 //Routes
 app.use("/courses", authMiddleware.secure, courseRoute);
-app.use("/category", authMiddleware.secure , categoryRoute);
+app.use("/category",categoryRoute);
 app.use("/users",userRoute);
 app.use("/auth", authRoute);
 

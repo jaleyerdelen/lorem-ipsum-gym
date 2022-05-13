@@ -42,3 +42,19 @@ exports.getCategory = async (req, res) => {
     });
   }
 };
+
+exports.deleteCategory = async (req, res) =>  {
+  try {
+    const category = await Category.deleteOne({_id:req.params.id})
+    res.status(200).json({
+      status: "success",
+      message: "success deleted",
+      category
+    })
+  }catch (error) {
+    res.status(200).json({
+      message:"category can not be deleted",
+      error
+    })
+  }
+}
