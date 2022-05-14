@@ -7,6 +7,10 @@ const Category = () => {
   const [category, setCategory] = useState([""]);
   const [isLoggin, setIsLogin] = useState(false);
 
+  useEffect(() => {
+    axe();
+  }, [category]);
+
   const axe = () => {
     const token = cookie.load("token");
     if (token) {
@@ -32,10 +36,6 @@ const Category = () => {
       .catch((error) => console.log(error));
   };
 
-  useEffect(() => {
-    axe();
-  }, []);
-
   return (
     <div>
       {category.map((categor) => {
@@ -56,6 +56,14 @@ const Category = () => {
           </div>
         );
       })}
+
+      <div className="m-4">
+        <Link to="/categoryEdit">
+          <button type="button" className="btn btn-primary">
+            Create New Category
+          </button>
+        </Link>
+      </div>
     </div>
   );
 };

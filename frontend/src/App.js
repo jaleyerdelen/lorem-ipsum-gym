@@ -13,12 +13,9 @@ import CourseDetail from "./pages_detail/CourseDetail"
 import CategoryDetail from "./pages_detail/CategoryDetail";
 
 import Edit from "./components/Edit";
-
+import CategoryEdit from "./components/CategoryEdit"
 
 function App() {
-
-  
-
   return (
     <BrowserRouter>
       <Routes>
@@ -31,6 +28,7 @@ function App() {
         <Route path="/courses/:slug" element={<CourseDetail />} />
         <Route path="/dashboard" element={<TeacherDashboard />} />
         <Route path="/category/:slug" element={<CategoryDetail />} />
+        <Route path="/categoryEdit" element={<CategoryEdit />} />
 
         <Route path="/edit/:slug" element={<Edit/>} />
 
