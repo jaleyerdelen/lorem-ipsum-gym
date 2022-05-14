@@ -5,7 +5,6 @@ const authController = require('../controllers/authController');
 
 const router = express.Router();
 
-
 router.route("/").post(authMiddleware.secure, authController.userRole("teacher", "admin"),categoryController.createCategory)
 router.route("/").get(categoryController.getAllCategory)
 router.route("/:slug").get(categoryController.getCategory)
