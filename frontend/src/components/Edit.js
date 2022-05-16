@@ -24,7 +24,7 @@ const Edit = () => {
     };
 
     getCourse();
-  }, []);
+  }, [slug]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

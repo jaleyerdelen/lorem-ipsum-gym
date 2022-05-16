@@ -19,7 +19,6 @@ const Home = () => {
     allCourse();
   }, []);
 
-  
   const deleteCourse = (course) => {
     console.log("delete course tıklandı");
     const token = cookie.load("token");
@@ -34,18 +33,17 @@ const Home = () => {
       .then((res) => console.log(res.data));
   };
 
- 
-  
-
   return (
     <>
       <div>
         {courses.map((course) => {
+          console.log("courseslar",course)
           return (
             <div>
               <Link to={`courses/${course.slug}`}>
                 <h2>{course.name}</h2>
               </Link>
+              <h2>this course created by {course.createdBy}</h2>
               <Link to={`edit/${course.slug}`}>
                 <button type="button" className="btn btn-primary">
                   update
@@ -58,7 +56,6 @@ const Home = () => {
               >
                 delete
               </button>
-
             </div>
           );
         })}
