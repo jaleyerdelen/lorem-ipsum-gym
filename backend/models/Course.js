@@ -21,6 +21,9 @@ const CourseSchema = new Schema({
     type: String,
     unique: true,
   },
+  createdBy: {
+    type: String,
+  }
 });
 
 CourseSchema.pre("validate", function (next) {
