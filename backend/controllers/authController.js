@@ -44,7 +44,7 @@ exports.createUser = async (req, res) => {
 
 exports.getAllUser = async (req, res) => {
   try {
-    const user = await User.find();
+    const user = await User.find().populate("courses");
     res.status(200).json({
       status: "success",
       user,
@@ -52,6 +52,22 @@ exports.getAllUser = async (req, res) => {
   } catch (error) {
     res.status(200).json({
       status: "fail",
+      error,
+    });
+  }
+};
+
+exports.getProfile = async (req, res) => {
+  console.log(req.user);
+  try {
+    const profile = await User.findById(req.user._id).populate("courses");
+    res.status(200).json({
+      message: "success",
+      profile,
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: "error",
       error,
     });
   }

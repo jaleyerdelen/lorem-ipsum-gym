@@ -1,5 +1,5 @@
 const Course = require("../models/Course");
-
+const User = require("../models/User");
 exports.createCourse = async (req, res) => {
   const course = await Course.create({
     name: req.body.name,
@@ -75,6 +75,28 @@ exports.deleteCourse = async (req, res) => {
   } catch (error) {
     res.status(200).json({
       status: "fail",
+      error,
+    });
+  }
+};
+
+exports.enrollCourse = async (req, res) => {
+  //console.log(req.body);
+  try {
+    const course = await Course.findById(req.body.course_id);
+    console.log("course2", course);
+    const user = await User.findById(req.user._id)
+    console.log("user", user);
+    await user.courses.push({ _id: req.body.course_id });
+    await user.save();
+    //console.log(user.courses[0]._id);
+    res.status(200).json({
+      message: "success",
+      user,
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: "error",
       error,
     });
   }
