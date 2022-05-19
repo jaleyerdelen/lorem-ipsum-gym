@@ -37,7 +37,6 @@ const Home = () => {
     <>
       <div>
         {courses.map((course) => {
-          console.log("courseslar",course)
           return (
             <div>
               <Link to={`courses/${course.slug}`}>
@@ -56,6 +55,8 @@ const Home = () => {
               >
                 delete
               </button>
+             
+          
             </div>
           );
         })}

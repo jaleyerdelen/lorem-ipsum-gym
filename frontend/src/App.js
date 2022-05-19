@@ -8,6 +8,8 @@ import Login from "./components/Login";
 import Logout from "./components/Logout";
 import TeacherDashboard from "./components/TeacherDashboard";
 import AdminPage from "./components/AdminPage"
+import StudentCourse from "./components/StudentCourse"
+import StudentDashboard from "./components/StudentDashboard"
 
 import CourseDetail from "./pages_detail/CourseDetail"
 import CategoryDetail from "./pages_detail/CategoryDetail";
@@ -29,9 +31,9 @@ function App() {
         <Route path="/dashboard" element={<TeacherDashboard />} />
         <Route path="/category/:slug" element={<CategoryDetail />} />
         <Route path="/categoryEdit" element={<CategoryEdit />} />
-
         <Route path="/edit/:slug" element={<Edit/>} />
-
+        <Route path="/student"  element={<StudentCourse/>}/>
+        <Route path="/studentDashboard"  element={<StudentDashboard/>}/>
       </Routes>
     </BrowserRouter>
   );
