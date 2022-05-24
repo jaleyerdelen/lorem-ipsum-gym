@@ -3,14 +3,34 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import cookie from "react-cookies";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+import { useNavigate } from "react-router-dom";
+
 const StudentCourse = () => {
   const [courses, setCourses] = useState([""]);
-  const [enroll, setEnroll] = useState([""]);
+  const [course_id, setCourses_id] = useState([""]);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     allCourse();
   }, []);
 
+  const notify = () => {
+    toast.error("you have already this course", {
+      position: "top-center",
+      autoClose: 1000,
+    });
+  };
+
+  const noti = () => {
+    toast.success("you are enrolled", {
+      position: "top-center",
+      autoClose: 1000,
+    });
+  };
   const allCourse = () => {
     const token = cookie.load("token");
     axios
@@ -34,8 +54,15 @@ const StudentCourse = () => {
           headers: { authorization: `Baerer ${token}` },
         }
       )
-      .then((res) => console.log("res", res.data))
-      .catch((err) => console.log(err));
+      .then((res) => {
+        setCourses_id(res.data.user.name);
+        noti();
+        setTimeout(() => {
+          navigate("/studentDashboard");
+        }, 3000);
+      })
+  
+      .catch((err) => notify(err.request.status));
   };
 
   return (
@@ -46,7 +73,6 @@ const StudentCourse = () => {
           <div>
             <h4>{course.name}</h4>
             <h3>{course.description}</h3>
-            {/* <Link to="/studentDashboard">  */}
             <form method="POST">
               <input type="hidden" name="course" />
               <button
@@ -57,8 +83,7 @@ const StudentCourse = () => {
                 Enroll
               </button>
             </form>
-            <div></div>
-            {/* </Link>  */}
+            <ToastContainer />
           </div>
         );
       })}

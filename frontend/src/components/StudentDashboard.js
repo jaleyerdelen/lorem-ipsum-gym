@@ -2,9 +2,16 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import cookie from "react-cookies";
+ 
+
+
 
 const StudentDashboard = () => {
   const [student, setStudent] = useState([""]);
+
+  useEffect(() => {
+    profile();
+  }, []);
 
   const profile = () => {
     const token = cookie.load("token");
@@ -15,14 +22,19 @@ const StudentDashboard = () => {
       .then((res) => setStudent(res.data.profile.courses))
       .catch((err) => console.log(err));
   };
-  useEffect(() => {
-    profile();
-  }, []);
+
   return (
     <div>
+      <p>Your Courses</p>
       {student.map((i) => {
         console.log("i", i);
-        return <div>{i.name}</div>;
+        return (
+          <>
+            <div>{i.name}</div>
+          
+          </>
+        )
+      
       })}
     </div>
   );
