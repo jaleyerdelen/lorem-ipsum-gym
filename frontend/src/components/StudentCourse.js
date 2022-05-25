@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import cookie from "react-cookies";
 
 import { ToastContainer, toast } from "react-toastify";
@@ -42,7 +41,6 @@ const StudentCourse = () => {
   };
 
   const enrollCourse = (course) => {
-    console.log("tıklandı");
     const token = cookie.load("token");
     axios
       .post(
@@ -68,7 +66,6 @@ const StudentCourse = () => {
   return (
     <div>
       {courses.map((course) => {
-        console.log("courses", course);
         return (
           <div>
             <h4>{course.name}</h4>

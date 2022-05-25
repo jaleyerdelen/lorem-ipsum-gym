@@ -1,10 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import cookie from "react-cookies";
- 
-
-
 
 const StudentDashboard = () => {
   const [student, setStudent] = useState([""]);
@@ -27,14 +23,11 @@ const StudentDashboard = () => {
     <div>
       <p>Your Courses</p>
       {student.map((i) => {
-        console.log("i", i);
         return (
           <>
             <div>{i.name}</div>
-          
           </>
-        )
-      
+        );
       })}
     </div>
   );
