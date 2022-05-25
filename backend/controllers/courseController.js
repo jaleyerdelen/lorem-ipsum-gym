@@ -81,19 +81,21 @@ exports.deleteCourse = async (req, res) => {
 };
 
 exports.enrollCourse = async (req, res) => {
-  //console.log(req.body);
   try {
     const course = await Course.findById(req.body.course_id);
-    console.log("course2", course);
-    const user = await User.findById(req.user._id)
-    console.log("user", user);
-    await user.courses.push({ _id: req.body.course_id });
-    await user.save();
-    //console.log(user.courses[0]._id);
-    res.status(200).json({
-      message: "success",
-      user,
-    });
+    const user = await User.findById(req.user._id);
+    if (!user.courses.includes(course._id)) {
+      await user.courses.push({ _id: req.body.course_id });
+      await user.save();
+      res.status(200).json({
+        message: "success",
+        user,
+      });
+    } else {
+      res.status(404).json({
+        message: "you already exist",
+      });
+    }
   } catch (error) {
     res.status(400).json({
       status: "error",

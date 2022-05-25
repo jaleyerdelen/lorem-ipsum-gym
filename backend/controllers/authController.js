@@ -6,6 +6,9 @@ const JWT_SECRET = process.env.JWT_SECRET;
 const JWT_EXPIRES = process.env.JWT_EXPIRES;
 const JWT_EXPIRATION_NUM = process.env.JWT_EXPIRATION_NUM;
 const NODE_ENV = process.env.NODE_ENV;
+const MAILPS = process.env.MAILPS;
+
+const nodemailer = require("nodemailer");
 
 const sendToken = (user, statusCode, req, res) => {
   const token = jwt.sign({ id: user._id, name: user.name }, JWT_SECRET, {
@@ -140,6 +143,71 @@ exports.deleteUser = async (req, res) => {
   } catch (err) {
     res.status(200).json({
       status: "fail",
+      err,
+    });
+  }
+};
+
+exports.contactGetUser = (req, res) => {
+  try {
+    res.status(200).json({
+      status: "success",
+    });
+  } catch (err) {
+    res.status(200).json({
+      status: "fail",
+      err,
+    });
+  }
+};
+
+exports.contactUser = async (req, res) => {
+  console.log(req.body);
+  try {
+    const outputMessage = `
+   <h1>Message Details</h1>
+   <ul>
+   <li>Name: ${req.body.name}</li>
+   <li>Email: ${req.body.email}</li>
+   </ul>
+   <h1>Message</h1>
+   <p>${req.body.message}</p>
+   `;
+
+    // create reusable transporter object using the default SMTP transport
+    let transporter = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true, // true for 465, false for other ports
+      auth: {
+        user: "ginbluesama@gmail.com", // gmail account
+        pass: MAILPS, // gmail password
+      },
+    });
+
+    // send mail with defined transport object
+    let info = await transporter.sendMail({
+      from: '"Lore ipsum gym contact form" <jaleyerdelen@gmail.com>', // sender address
+      to: "ginbluesama@gmail.com", // list of receivers
+      subject: "Lore ipsum gym contact form new message ✔", // Subject line
+      html: outputMessage, // html body
+    });
+
+    console.log("Message sent: %s", info.messageId);
+    // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+
+    // Preview only available when sending through an Ethereal account
+    console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+    // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+
+    res.status(200).json({
+      message: "sended",
+      status: "success",
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "error",
+      message: "error",
       err,
     });
   }
