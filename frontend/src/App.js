@@ -11,6 +11,7 @@ import AdminPage from "./components/AdminPage"
 import StudentCourse from "./components/StudentCourse"
 import StudentDashboard from "./components/StudentDashboard"
 import Contact from "./components/Contact"
+import Navbar from "./components/Navbar"
 
 import CourseDetail from "./pages_detail/CourseDetail"
 import CategoryDetail from "./pages_detail/CategoryDetail";
@@ -19,13 +20,15 @@ import Edit from "./components/Edit";
 import CategoryEdit from "./components/CategoryEdit"
 
 function App() {
+
   return (
     <BrowserRouter>
+    <Navbar/>
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route path="/category" element={<Category />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login   />} />
+        <Route path="/login" element={<Login />}  />
         <Route path="/logout" element={<Logout  />} />
         <Route path="/admin" element={<AdminPage  />} />
         <Route path="/courses/:slug" element={<CourseDetail />} />
@@ -36,6 +39,7 @@ function App() {
         <Route path="/student"  element={<StudentCourse/>}/>
         <Route path="/studentDashboard"  element={<StudentDashboard/>}/>
         <Route path="/contact"  element={<Contact/>}/>
+        <Route path="/navbar"  element={<Navbar />}/>
       </Routes>
     </BrowserRouter>
   );

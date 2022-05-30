@@ -9,7 +9,7 @@ const Category = () => {
 
   useEffect(() => {
     axe();
-  }, [category]);
+  }, []);
 
   const axe = () => {
     const token = cookie.load("token");

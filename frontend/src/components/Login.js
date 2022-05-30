@@ -24,7 +24,6 @@ const Login = () => {
       .then((res) => {
         cookie.save("token", res.data.token);
       })
-
       .catch((err) => {
         console.log(err);
       });

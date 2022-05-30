@@ -1,9 +1,13 @@
 import axios from "axios";
 import React from "react";
 import cookie from 'react-cookies'
+import {useEffect} from "react";
 
 const Logout = () => {
   
+  useEffect(()=> {
+log()
+  }, [])
   const log = () => {
     console.log("buttona tıklandı");
     axios
@@ -15,7 +19,7 @@ const Logout = () => {
 
   return (
     <div>
-      <button onClick={() => log()}>Logout</button>;
+     success logout
     </div>
   );
 };

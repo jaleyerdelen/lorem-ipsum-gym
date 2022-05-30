@@ -1,11 +1,17 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import cookie from "react-cookies";
+import { Link } from "react-router-dom";
 
 const TeacherDashboard = () => {
   const [courses, setCourses] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const [profil, setProfil] = useState(false);
+
+  useEffect(() => {
+    profile()
+  }, [])
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -28,86 +34,107 @@ const TeacherDashboard = () => {
       .then((res) => setCourses(res.data.course));
   };
 
+  const profile = () => {
+    const token = cookie.load("token");
+    axios
+      .get(" http://localhost:5000/users/profile", {
+        headers: { authorization: `Baerer ${token}` },
+      })
+      .then((res) => {
+        console.log(res.data.profile.role);
+        if (res.data.profile.role.includes("student")) {
+          setProfil(false);
+          console.log("you are a student");
+        } else if (res.data.profile.role.includes("teacher")) {
+          setProfil(true);
+          console.log("you are a teacher");
+        } else {
+          console.log("who are you");
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <>
-      <button
-        type="button"
-        class="btn btn-primary"
-        data-bs-toggle="modal"
-        data-bs-target="#exampleModal"
-        data-bs-whatever="@mdo"
-      >
-        Open modal for @mdo
-      </button>
-      <div
-        class="modal fade"
-        id="exampleModal"
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">
-                Create Course
-              </h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="modal-body">
-              <form onSubmit={handleSubmit} h method="POST">
-                <div class="mb-3">
-                  <label for="name" class="col-form-label">
-                    Name
-                  </label>
-
-                  <input
-                    onChange={(e) => {
-                      setName(e.target.value);
-                    }}
-                    type="text"
-                    class="form-control"
-                  />
+      {profil === true ? (
+        <>
+          <button
+            type="button"
+            className="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+            data-bs-whatever="@mdo"
+          >
+            Open modal for @mdo
+          </button>
+          <div
+            id="exampleModal"
+            tabindex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+          >
+            <div className="modal-dialog">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title" id="exampleModalLabel">
+                    Create Course
+                  </h5>
+                  <button
+                    type="button"
+                    className="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
                 </div>
+                <div className="modal-body">
+                  <form onSubmit={handleSubmit} h method="POST">
+                    <div className="mb-3">
+                      <label for="name" className="col-form-label">
+                        Name
+                      </label>
 
-                <div class="mb-3">
-                  <label for="message-text" class="col-form-label">
-                    Description
-                  </label>
-                  <textarea
-                    onChange={(e) => {
-                      setDescription(e.target.value);
-                    }}
-                    class="form-control"
-                    id="message-text"
-                  ></textarea>
+                      <input
+                        onChange={(e) => {
+                          setName(e.target.value);
+                        }}
+                        type="text"
+                        className="form-control"
+                      />
+                    </div>
+
+                    <div className="mb-3">
+                      <label for="message-text" className="col-form-label">
+                        Description
+                      </label>
+                      <textarea
+                        onChange={(e) => {
+                          setDescription(e.target.value);
+                        }}
+                        className="form-control"
+                        id="message-text"
+                      ></textarea>
+                    </div>
+                  </form>
                 </div>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Close
-              </button>
-              <button
-                onClick={() => dashboard()}
-                type="submit"
-                class="btn btn-primary"
-              >
-                Send
-              </button>
+                <div className="modal-footer">
+                  <Link to="/">
+                    <button
+                      onClick={() => dashboard()}
+                      type="submit"
+                      className="btn btn-primary"
+                    >
+                      Send
+                    </button>
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+        </>
+       ) : (
+        false
+      )} 
     </>
   );
 };

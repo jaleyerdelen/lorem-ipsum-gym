@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import cookie from "react-cookies";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom"
 
 const Edit = () => {
   const { slug } = useParams();
@@ -73,6 +74,7 @@ const Edit = () => {
           className="form-control"
           id="message-text"
         ></textarea>
+        <Link to="/">
         <button
           type="button"
           onClick={() => updateCourse()}
@@ -80,6 +82,7 @@ const Edit = () => {
         >
           Edit
         </button>
+        </Link>
       </div>
     </form>
   );

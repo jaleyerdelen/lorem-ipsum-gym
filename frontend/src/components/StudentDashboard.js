@@ -4,6 +4,7 @@ import cookie from "react-cookies";
 
 const StudentDashboard = () => {
   const [student, setStudent] = useState([""]);
+  
 
   useEffect(() => {
     profile();
