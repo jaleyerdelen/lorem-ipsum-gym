@@ -7,17 +7,18 @@ const Home = () => {
   const [courses, setCourses] = useState([""]);
 
   useEffect(() => {
-    const allCourse = () => {
-      const token = cookie.load("token");
-      axios
-        .get("http://localhost:5000/courses/", {
-          headers: { authorization: `Baerer ${token}` },
-        })
-        .then((res) => setCourses(res.data.courses))
-        .catch((err) => console.log(err));
-    };
     allCourse();
   }, []);
+
+  const allCourse = () => {
+    const token = cookie.load("token");
+    axios
+      .get("http://localhost:5000/courses/", {
+        headers: { authorization: `Baerer ${token}` },
+      })
+      .then((res) => setCourses(res.data.courses))
+      .catch((err) => console.log(err));
+  };
 
   const deleteCourse = (course) => {
     console.log("delete course tıklandı");
@@ -55,8 +56,6 @@ const Home = () => {
               >
                 delete
               </button>
-             
-          
             </div>
           );
         })}

@@ -4,7 +4,7 @@ const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
-        <Link className="navbar-brand" to="/new page">
+        <Link className="navbar-brand" to="/">
           Lorem Ipsum Gym
         </Link>
         <button
@@ -24,51 +24,73 @@ const Navbar = () => {
               <Link
                 className="nav-link active"
                 aria-current="page"
-                to="/new page"
+                to="/"
               >
                 Home
               </Link>
             </li>
-            <li className="nav-item">
-              <Link
-                className="nav-link active"
-                aria-current="page"
-                to="/new page"
-              >
-                Category
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link
-                className="nav-link active"
-                aria-current="page"
-                to="/new page"
-              >
-                Course
-              </Link>
-            </li>
-
-            <li className="nav-item">
-              <Link
-                className="nav-link active"
-                aria-current="page"
+             {/* Teacher Dashboard */}
+            <li className="nav-item dropdown">
+              <li
+                className="nav-link dropdown-toggle"
                 to="/dashboard"
+                id="navbarDropdownMenuLink"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
               >
                 Teacher Dashboard
-              </Link>
-            </li>
+              </li>
 
-            {/* <li className="nav-item dropdown">
-          <Link className="nav-link dropdown-toggle" to="/dashboard" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Teacher Dashboard
-          </Link>
-         
-          <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-           <li><Link className="dropdown-item" to="/category">Create Category</Link></li>
-            <li><Link className="dropdown-item" to="/dashboard">Create Course</Link></li>
-            <li><Link className="dropdown-item" to="/">Courses</Link></li>
-          </ul>
-        </li> */}
+              <ul
+                className="dropdown-menu"
+                aria-labelledby="navbarDropdownMenuLink"
+              >
+                <li>
+                  <Link className="dropdown-item" to="/category">
+                    Create Category
+                  </Link>
+                </li>
+                <li>
+                  <Link className="dropdown-item" to="/dashboard">
+                    Create Course
+                  </Link>
+                </li>
+                <li>
+                  <Link className="dropdown-item" to="/">
+                    Courses
+                  </Link>
+                </li>
+              </ul>
+            </li>
+            {/* Student Dashboard */}
+               <li className="nav-item dropdown">
+              <li
+                className="nav-link dropdown-toggle"
+                to="/dashboard"
+                id="navbarDropdownMenuLink"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Student Dashboard
+              </li>
+              <ul
+                className="dropdown-menu"
+                aria-labelledby="navbarDropdownMenuLink"
+              >
+                <li>
+                  <Link className="dropdown-item" to="/studentDashboard">
+                    Your Courses
+                  </Link>
+                </li>
+                <li>
+                  <Link className="dropdown-item" to="/student">
+                    Enroll Course
+                  </Link>
+                </li>
+              </ul>
+            </li>
           </ul>
           <div className="navbar-text d-grid gap-2 d-md-flex justify-content-md-end ">
             <Link to="/register">

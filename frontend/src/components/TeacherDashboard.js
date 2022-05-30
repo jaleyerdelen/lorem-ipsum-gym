@@ -4,6 +4,7 @@ import cookie from "react-cookies";
 import { Link } from "react-router-dom";
 
 const TeacherDashboard = () => {
+  
   const [courses, setCourses] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -59,15 +60,6 @@ const TeacherDashboard = () => {
     <>
       {profil === true ? (
         <>
-          <button
-            type="button"
-            className="btn btn-primary"
-            data-bs-toggle="modal"
-            data-bs-target="#exampleModal"
-            data-bs-whatever="@mdo"
-          >
-            Open modal for @mdo
-          </button>
           <div
             id="exampleModal"
             tabindex="-1"
@@ -118,7 +110,7 @@ const TeacherDashboard = () => {
                   </form>
                 </div>
                 <div className="modal-footer">
-                  <Link to="/">
+                  <Link to="/home">
                     <button
                       onClick={() => dashboard()}
                       type="submit"
