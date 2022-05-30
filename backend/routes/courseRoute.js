@@ -8,6 +8,7 @@ const router = express.Router();
 
 router.route("/").post(authMiddleware.secure, authController.userRole("admin", "teacher"),courseController.createCourse);
 router.route("/").get(authMiddleware.secure, authController.userRole("admin","teacher","student"),courseController.getAllCourses);
+router.route("/client").get(courseController.findCourse);
 router.route("/:slug").get(courseController.getCourse);
 router.route("/:slug").put(authMiddleware.secure, authController.userRole("admin", "teacher"),courseController.updateCourse);
 router.route("/:slug").delete(authMiddleware.secure, authController.userRole("admin", "teacher"), courseController.deleteCourse);
