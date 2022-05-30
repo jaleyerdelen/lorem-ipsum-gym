@@ -9,8 +9,8 @@ const router = express.Router();
 router.route("/").post(authMiddleware.secure, authController.userRole("admin", "teacher"),courseController.createCourse);
 router.route("/").get(authMiddleware.secure, authController.userRole("admin","teacher","student"),courseController.getAllCourses);
 router.route("/:slug").get(courseController.getCourse);
-router.route("/:slug").put(courseController.updateCourse);
-router.route("/:slug").delete(courseController.deleteCourse);
+router.route("/:slug").put(authMiddleware.secure, authController.userRole("admin", "teacher"),courseController.updateCourse);
+router.route("/:slug").delete(authMiddleware.secure, authController.userRole("admin", "teacher"), courseController.deleteCourse);
 router.route("/enroll").post(authMiddleware.secure, authController.userRole("student","admin", "teacher"),courseController.enrollCourse);
 
 module.exports = router;
