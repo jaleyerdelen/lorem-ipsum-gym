@@ -6,7 +6,8 @@ const authController = require('../controllers/authController');
 const router = express.Router();
 
 router.route("/").post(authMiddleware.secure, authController.userRole("teacher", "admin"),categoryController.createCategory)
-router.route("/").get(categoryController.getAllCategory)
+router.route("/").get(authMiddleware.secure, authController.userRole("teacher", "admin"),categoryController.getAllCategory)
+router.route("/program").get(categoryController.getAllCategory)
 router.route("/:slug").get(categoryController.getCategory)
 router.route("/:id").delete(authMiddleware.secure, authController.userRole("teacher", "admin"), categoryController.deleteCategory)
 

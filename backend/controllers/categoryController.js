@@ -17,18 +17,22 @@ exports.createCategory = async (req, res) => {
 };
 
 exports.getAllCategory = async (req, res) => {
-  try {
+  console.log(req.user)
+   try {
     const category = await Category.find();
     res.status(200).json({
       status: "success",
       category,
     });
-  } catch (error) {
-    res.status(200).json({
+ 
+  }catch (error) {
+    console.log(error)
+    res.status(400).json({
+      message: "you can't get all",
       status: "fail",
       error,
     });
-  }
+  } 
 };
 
 exports.getCategory = async (req, res) => {
