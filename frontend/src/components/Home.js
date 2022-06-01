@@ -36,26 +36,29 @@ const Home = () => {
 
   return (
     <>
-      <div>
+      <div className="container d-flex main-course row">
         {courses.map((course) => {
           return (
-            <div>
-              <Link to={`courses/${course.slug}`}>
+            <div className="col-4">
+              <div className="">
+              {/* <Link to={`/courses/${course.slug}`}> */}
                 <h2>{course.name}</h2>
-              </Link>
-              <h2>this course created by {course.createdBy}</h2>
+                <p>{course.description}</p>
+              {/* </Link>  */}
+              <p className="fw-light">this course created by <b>{course.createdBy}</b></p>
               <Link to={`edit/${course.slug}`}>
-                <button type="button" className="btn btn-primary">
+                <button type="button" className="btn btn-warning">
                   update
                 </button>
               </Link>
               <button
                 onClick={() => deleteCourse(course)}
                 type="button"
-                className="btn btn-primary m-4"
+                className="btn btn-danger m-4"
               >
                 delete
               </button>
+              </div>
             </div>
           );
         })}

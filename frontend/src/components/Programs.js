@@ -1,9 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 
-const ClientPage = () => {
-  const [courses, setCourses] = useState([""]);
+const Programs = () => {
+  const [category, setCategory] = useState([""]);
 
   useEffect(() => {
     allCourse();
@@ -11,19 +10,19 @@ const ClientPage = () => {
 
   const allCourse = () => {
     axios
-      .get("http://localhost:5000/courses/client")
-      .then((res) => setCourses(res.data.course))
+      .get("http://localhost:5000/category/program")
+      .then((res) => setCategory(res.data.category))
       .catch((err) => console.log(err));
   };
   return (
     <div className="container">
       <div className="row main-card d-flex  mt-5">
-        {courses.map((course) => {
-          console.log("course", course);
+        {category.map((categor) => {
+          console.log("categor", categor);
           return (
             <div className="col-4 card d-flex" styleName="width: 18rem;">
               <img
-                src="https://static.independent.co.uk/s3fs-public/thumbnails/image/2018/03/19/18/idoh-exercise.jpg?width=1200"
+                src="https://images.unsplash.com/photo-1607962837359-5e7e89f86776?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
                 className=""
                 alt="..."
                 width="400"
@@ -33,8 +32,8 @@ const ClientPage = () => {
                 styleName="max-width: 18rem;"
               >
                 <div className="card-body">
-                  <h5 className="card-title">{course.name}</h5>
-                  <p className="card-text">{course.description}</p>
+                  <h5 className="card-title">{categor.name}</h5>
+                  <p className="card-text">{categor.description}</p>
                 </div>
               </div>
             </div>
@@ -45,4 +44,4 @@ const ClientPage = () => {
   );
 };
 
-export default ClientPage;
+export default Programs;

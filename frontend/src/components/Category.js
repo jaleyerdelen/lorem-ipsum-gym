@@ -23,7 +23,7 @@ const Category = () => {
         headers: { authorization: `Baerer ${token}` },
       })
       .then((res) => setCategory(res.data.category))
-      .catch((error) => console.log(error));
+      .catch((error) => alert("you can't enter"));
   };
 
   const deleteCategory = (categor) => {
@@ -37,33 +37,37 @@ const Category = () => {
   };
 
   return (
-    <div>
+    <div className="card-category row d-flex justify-content-center">
+      <div className="m-4 d-flex justify-content-center mb-5">
+        {isLoggin === true && (
+          <Link to="/categoryEdit">
+            <button type="button" className="btn btn-info">
+              Create New Category
+            </button>
+          </Link>
+        )}
+      </div>
       {category.map((categor) => {
         return (
-          <div>
-            <Link to={`/category/${categor.slug}`}>
-              <h1>{categor.name}</h1>
-            </Link>
+          <div className="category-box col-4 mb-5">
+            {/* <Link className="link" to={`/category/${categor.slug}`}> */}
+              <h5>{categor.name}</h5>
+              <p>{categor.description}</p>
+            {/* </Link> */}
             {isLoggin === true && (
-              <button
-                onClick={() => deleteCategory(categor)}
-                type="button"
-                className="btn btn-primary"
-              >
-                delete
-              </button>
+              <div>
+                <button
+                  onClick={() => deleteCategory(categor)}
+                  type="button"
+                  className="btn btn-danger"
+                >
+                  delete
+                </button>
+              </div>
             )}
           </div>
         );
       })}
-
-      <div className="m-4">
-        <Link to="/categoryEdit">
-          <button type="button" className="btn btn-primary">
-            Create New Category
-          </button>
-        </Link>
-      </div>
     </div>
   );
 };

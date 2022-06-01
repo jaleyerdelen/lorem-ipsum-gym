@@ -29,7 +29,7 @@ const CategoryEdit = () => {
   };
 
   return (
-    <div>
+    <div className="container">
       <form method="POST" onSubmit={handleSubmit}>
         <div className="mb-3">
           <label for="text" className="form-label">

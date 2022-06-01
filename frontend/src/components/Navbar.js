@@ -29,6 +29,15 @@ const Navbar = () => {
                 Home
               </Link>
             </li>
+             <li className="nav-item">
+              <Link
+                className="nav-link active"
+                aria-current="page"
+                to="/program"
+              >
+                Programs
+              </Link>
+            </li>
              {/* Teacher Dashboard */}
             <li className="nav-item dropdown">
               <li
@@ -56,9 +65,9 @@ const Navbar = () => {
                     Create Course
                   </Link>
                 </li>
-                <li>
-                  <Link className="dropdown-item" to="/">
-                    Courses
+                 <li>
+                  <Link className="dropdown-item" to="/home">
+                     Courses
                   </Link>
                 </li>
               </ul>

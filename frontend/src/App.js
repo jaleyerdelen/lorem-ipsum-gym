@@ -12,6 +12,7 @@ import StudentDashboard from "./components/StudentDashboard"
 import Contact from "./components/Contact"
 import Navbar from "./components/Navbar"
 import ClientPage from "./components/ClientPage"
+import Programs from "./components/Programs"
 
 import CourseDetail from "./pages_detail/CourseDetail"
 import CategoryDetail from "./pages_detail/CategoryDetail";
@@ -36,11 +37,12 @@ function App() {
         <Route path="/dashboard" element={<TeacherDashboard  />} />
         <Route path="/category/:slug" element={<CategoryDetail />} />
         <Route path="/categoryEdit" element={<CategoryEdit />} />
-        <Route path="/edit/:slug" element={<Edit/>} />
+        <Route path="/home/edit/:slug" element={<Edit/>} />
         <Route path="/student"  element={<StudentCourse/>}/>
         <Route path="/studentDashboard"  element={<StudentDashboard/>}/>
         <Route path="/contact"  element={<Contact/>}/>
         <Route path="/navbar"  element={<Navbar />}/>
+        <Route path="/program"  element={<Programs/>}/>
       </Routes>
     </BrowserRouter>
   );
