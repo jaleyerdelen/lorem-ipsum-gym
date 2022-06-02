@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Contact = () => {
   const [name, setName] = useState("");
@@ -22,13 +23,13 @@ const Contact = () => {
   };
 
   return (
-    <div>
+    <div className="container">
       <form method="POST" onSubmit={handleSubmit}>
         <div className="mb-3 row">
           <label for="text" className="col-sm-2 col-form-label">
             Name
           </label>
-          <div className="col-sm-10">
+          <div className="col-sm-4">
             <input
               onChange={(e) => {
                 setName(e.target.value);
@@ -44,7 +45,7 @@ const Contact = () => {
           <label for="staticEmail" className="col-sm-2 col-form-label">
             Email
           </label>
-          <div className="col-sm-10">
+          <div className="col-sm-4">
             <input
               onChange={(e) => {
                 setEmail(e.target.value);
@@ -60,7 +61,7 @@ const Contact = () => {
           <label for="text" className="col-sm-2 col-form-label">
             Message
           </label>
-          <div className="col-sm-10">
+          <div className="col-sm-4">
             <input
               onChange={(e) => {
                 setMessage(e.target.value);
@@ -72,9 +73,9 @@ const Contact = () => {
             />
           </div>
         </div>
-        {/* <Link to="/"> */}
-        <input onClick={() => contact()} type="submit" value="Submit" />
-        {/* </Link> */}
+        <Link to="/">
+        <input className="btn btn-primary" onClick={() => contact()} type="submit" value="Submit" />
+        </Link>
       </form>
     </div>
   );

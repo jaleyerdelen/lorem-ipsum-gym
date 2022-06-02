@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 const StudentCourse = () => {
   const [courses, setCourses] = useState([""]);
   const [course_id, setCourses_id] = useState([""]);
+  const [profil, setProfil] = useState(false);
 
   const navigate = useNavigate();
 
@@ -62,9 +63,32 @@ const StudentCourse = () => {
 
       .catch((err) => notify(err.request.status));
   };
+ 
+  const profiles = () => {
+    const token = cookie.load("token");
+    axios
+      .get(" http://localhost:5000/users/profile", {
+        headers: { authorization: `Baerer ${token}` },
+      })
+      .then((res) => {
+        console.log(res.data.profile.role);
+        if (res.data.profile.role.includes("student")) {
+          setProfil(false);
+          console.log("you are a student");
+        } else if (res.data.profile.role.includes("teacher")) {
+          setProfil(true);
+          console.log("you are a teacher");
+        } else {
+          console.log("who are you");
+        }
+      })
+      .catch((err) =>alert("you can't enter"));
+  };
 
   return (
-    <div className="student-course">
+    <>
+    { profil === true ? (
+      <div className="student-course">
       <div className="container">
         <div className="row">
           {courses.map((course) => {
@@ -89,6 +113,9 @@ const StudentCourse = () => {
         </div>
       </div>
     </div>
+    ) : (false) }
+    
+    </>
   );
 };
 

@@ -100,6 +100,15 @@ const Navbar = () => {
                 </li>
               </ul>
             </li>
+               <li className="nav-item">
+              <Link
+                className="nav-link active"
+                aria-current="page"
+                to="/contact"
+              >
+               Contact
+              </Link>
+            </li>
           </ul>
           <div className="navbar-text d-grid gap-2 d-md-flex justify-content-md-end ">
             <Link to="/register">

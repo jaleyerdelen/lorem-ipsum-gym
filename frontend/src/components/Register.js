@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Register = () => {
   const [register, setRegister] = useState([]);
@@ -34,12 +35,13 @@ const Register = () => {
   };
 
   return (
+    <div className="container">
     <form onSubmit={handleSubmit}>
       <div className="mb-3 row">
         <label for="staticText" className="col-sm-2 col-form-label">
           Name
         </label>
-        <div className="col-sm-10">
+        <div className="col-sm-4">
           <input
             onChange={(e) => {
               setName(e.target.value);
@@ -56,7 +58,7 @@ const Register = () => {
         <label for="staticEmail" className="col-sm-2 col-form-label">
           Email
         </label>
-        <div className="col-sm-10">
+        <div className="col-sm-4">
           <input
             onChange={(e) => {
               setEmail(e.target.value);
@@ -72,7 +74,7 @@ const Register = () => {
 
       <div className="mb-3 row">
         <label className="col-sm-2 col-form-label">Role</label>
-        <div className="col-sm-10">
+        <div className="col-sm-4">
           <select
             onChange={(e) => {
               setRole(e.target.value);
@@ -90,7 +92,7 @@ const Register = () => {
         <label for="inputPassword" className="col-sm-2 col-form-label">
           Password
         </label>
-        <div className="col-sm-10">
+        <div className="col-sm-4">
           <input
             onChange={(e) => {
               setPassword(e.target.value);
@@ -103,8 +105,11 @@ const Register = () => {
           />
         </div>
       </div>
-      <input type="submit" value="Submit" />
+      <Link to="/">
+      <input className="btn btn-primary" type="submit" value="Submit" />
+    </Link>
     </form>
+    </div>
   );
 };
 

@@ -4,9 +4,11 @@ import cookie from "react-cookies";
 
 const StudentDashboard = () => {
   const [student, setStudent] = useState([""]);
+  const [profil, setProfil] = useState(false);
 
   useEffect(() => {
     profile();
+    profiles()
   }, []);
 
   const profile = () => {
@@ -19,8 +21,31 @@ const StudentDashboard = () => {
       .catch((err) => console.log(err));
   };
 
+  const profiles = () => {
+    const token = cookie.load("token");
+    axios
+      .get(" http://localhost:5000/users/profile", {
+        headers: { authorization: `Baerer ${token}` },
+      })
+      .then((res) => {
+        console.log(res.data.profile.role);
+        if (res.data.profile.role.includes("student")) {
+          setProfil(false);
+          console.log("you are a student");
+        } else if (res.data.profile.role.includes("teacher")) {
+          setProfil(true);
+          console.log("you are a teacher");
+        } else {
+          console.log("who are you");
+        }
+      })
+      .catch((err) =>alert("you can't enter"));
+  };
+
   return (
-    <div className="dashboard container">
+  <>
+  { profil === true ? (
+ <div className="dashboard container">
       <div class="row row-cols-1 row-cols-md-8 g-4">
         {student.map((i) => {
           return (
@@ -46,6 +71,9 @@ const StudentDashboard = () => {
         })}
       </div>
     </div>
+  ): (false)}
+   
+    </>
   );
 };
 
