@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import cookie from "react-cookies";
 import { Link } from "react-router-dom";
 
+
 const TeacherDashboard = () => {
   
   const [courses, setCourses] = useState("");
@@ -53,7 +54,7 @@ const TeacherDashboard = () => {
           console.log("who are you");
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) =>alert("you can't enter"));
   };
 
   return (

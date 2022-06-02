@@ -2,13 +2,17 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import cookie from "react-cookies";
+import { useNavigate } from "react-router-dom";
 
 const Category = () => {
   const [category, setCategory] = useState([""]);
   const [isLoggin, setIsLogin] = useState(false);
+  const [profil, setProfil] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axe();
+    profile();
   }, []);
 
   const axe = () => {
@@ -23,7 +27,36 @@ const Category = () => {
         headers: { authorization: `Baerer ${token}` },
       })
       .then((res) => setCategory(res.data.category))
-      .catch((error) => alert("you can't enter"));
+      .catch((error) => {
+        setTimeout(() => {
+          alert("you can't enter");
+          navigate("/");
+        }, 2000);
+      });
+  };
+
+  const profile = () => {
+    const token = cookie.load("token");
+    axios
+      .get(" http://localhost:5000/users/profile", {
+        headers: { authorization: `Baerer ${token}` },
+      })
+      .then((res) => {
+        console.log(res.data.profile.role);
+        if (res.data.profile.role.includes("student")) {
+          setProfil(false);
+          alert("you are a student");
+          setTimeout(() => {
+            navigate("/");
+          }, 1000);
+        } else if (res.data.profile.role.includes("teacher")) {
+          setProfil(true);
+          console.log("you are a teacher");
+        } else {
+          console.log("who are you");
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
   const deleteCategory = (categor) => {
@@ -37,38 +70,44 @@ const Category = () => {
   };
 
   return (
-    <div className="card-category row d-flex justify-content-center">
-      <div className="m-4 d-flex justify-content-center mb-5">
-        {isLoggin === true && (
-          <Link to="/categoryEdit">
-            <button type="button" className="btn btn-info">
-              Create New Category
-            </button>
-          </Link>
-        )}
-      </div>
-      {category.map((categor) => {
-        return (
-          <div className="category-box col-4 mb-5">
-            {/* <Link className="link" to={`/category/${categor.slug}`}> */}
-              <h5>{categor.name}</h5>
-              <p>{categor.description}</p>
-            {/* </Link> */}
+    <>
+      {profil === true ? (
+        <div className="card-category row d-flex justify-content-center">
+          <div className="m-4 d-flex justify-content-center mb-5">
             {isLoggin === true && (
-              <div>
-                <button
-                  onClick={() => deleteCategory(categor)}
-                  type="button"
-                  className="btn btn-danger"
-                >
-                  delete
+              <Link to="/categoryEdit">
+                <button type="button" className="btn btn-info">
+                  Create New Category
                 </button>
-              </div>
+              </Link>
             )}
           </div>
-        );
-      })}
-    </div>
+          {category.map((categor) => {
+            return (
+              <div className="category-box col-4 mb-5">
+                {/* <Link className="link" to={`/category/${categor.slug}`}> */}
+                <h5>{categor.name}</h5>
+                <p>{categor.description}</p>
+                {/* </Link> */}
+                {isLoggin === true && (
+                  <div>
+                    <button
+                      onClick={() => deleteCategory(categor)}
+                      type="button"
+                      className="btn btn-danger"
+                    >
+                      delete
+                    </button>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      ) : (
+        false
+      )}
+    </>
   );
 };
 

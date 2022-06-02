@@ -33,3 +33,9 @@ code {
 .main-course {
   margin-left: 100px;
 }
+.dashboard {
+  display: flex;
+}
+.student-course {
+  display: flex;
+}

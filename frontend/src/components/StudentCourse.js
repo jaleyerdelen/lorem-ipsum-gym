@@ -59,31 +59,35 @@ const StudentCourse = () => {
           navigate("/studentDashboard");
         }, 3000);
       })
-  
+
       .catch((err) => notify(err.request.status));
   };
 
   return (
-    <div>
-      {courses.map((course) => {
-        return (
-          <div>
-            <h4>{course.name}</h4>
-            <h3>{course.description}</h3>
-            <form method="POST">
-              <input type="hidden" name="course" />
-              <button
-                onClick={() => enrollCourse(course)}
-                type="button"
-                className="btn btn-primary m-4"
-              >
-                Enroll
-              </button>
-            </form>
-            <ToastContainer />
-          </div>
-        );
-      })}
+    <div className="student-course">
+      <div className="container">
+        <div className="row">
+          {courses.map((course) => {
+            return (
+              <div className="col-4 mb-5">
+                <h4>{course.name}</h4>
+                <p>{course.description}</p>
+                <form method="POST">
+                  <input type="hidden" name="course" />
+                  <button
+                    onClick={() => enrollCourse(course)}
+                    type="button"
+                    className="btn btn-primary m-4"
+                  >
+                    Enroll
+                  </button>
+                </form>
+                <ToastContainer />
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 };

@@ -5,9 +5,11 @@ import cookie from "react-cookies";
 
 const Home = () => {
   const [courses, setCourses] = useState([""]);
+   const [profil, setProfil] = useState(false);
 
   useEffect(() => {
     allCourse();
+    profile()
   }, []);
 
   const allCourse = () => {
@@ -34,8 +36,30 @@ const Home = () => {
       .then((res) => console.log(res.data));
   };
 
+   const profile = () => {
+    const token = cookie.load("token");
+    axios
+      .get(" http://localhost:5000/users/profile", {
+        headers: { authorization: `Baerer ${token}` },
+      })
+      .then((res) => {
+        console.log(res.data.profile.role);
+        if (res.data.profile.role.includes("student")) {
+          setProfil(false);
+          console.log("you are a student");
+        } else if (res.data.profile.role.includes("teacher")) {
+          setProfil(true);
+          console.log("you are a teacher");
+        } else {
+          console.log("who are you");
+        }
+      })
+      .catch((err) => alert("you can't enter"));
+  };
+
   return (
     <>
+     {profil === true ? (
       <div className="container d-flex main-course row">
         {courses.map((course) => {
           return (
@@ -63,6 +87,9 @@ const Home = () => {
           );
         })}
       </div>
+       ) : (
+        false
+      )} 
     </>
   );
 };
