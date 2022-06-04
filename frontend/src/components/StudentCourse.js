@@ -16,6 +16,7 @@ const StudentCourse = () => {
 
   useEffect(() => {
     allCourse();
+    profiles();
   }, []);
 
   const notify = () => {
@@ -63,7 +64,29 @@ const StudentCourse = () => {
 
       .catch((err) => notify(err.request.status));
   };
- 
+
+  const releaseCourse = (course) => {
+    const token = cookie.load("token");
+    axios
+      .post(
+        " http://localhost:5000/courses/release",
+        {
+          course_id: course._id,
+        },
+        {
+          headers: { authorization: `Baerer ${token}` },
+        }
+      )
+      .then((res) => {
+        console.log(res.data);
+        alert("Are you sure you want to release the course ?");
+        setTimeout(() => {
+          navigate("/studentDashboard");
+        }, 1000);
+      })
+      .catch((err) => console.log(err));
+  };
+
   const profiles = () => {
     const token = cookie.load("token");
     axios
@@ -82,39 +105,47 @@ const StudentCourse = () => {
           console.log("who are you");
         }
       })
-      .catch((err) =>alert("you can't enter"));
+      .catch((err) => alert("you can't enter"));
   };
 
   return (
     <>
-    { profil === true ? (
-      <div className="student-course">
-      <div className="container">
-        <div className="row">
-          {courses.map((course) => {
-            return (
-              <div className="col-4 mb-5">
-                <h4>{course.name}</h4>
-                <p>{course.description}</p>
-                <form method="POST">
-                  <input type="hidden" name="course" />
-                  <button
-                    onClick={() => enrollCourse(course)}
-                    type="button"
-                    className="btn btn-primary m-4"
-                  >
-                    Enroll
-                  </button>
-                </form>
-                <ToastContainer />
-              </div>
-            );
-          })}
+      {profil === false ? (
+        <div className="student-course">
+          <div className="container">
+            <div className="row">
+              {courses.map((course) => {
+                return (
+                  <div className="col-4 mb-5">
+                    <h4>{course.name}</h4>
+                    <p>{course.description}</p>
+                    <form method="POST">
+                      <input type="hidden" name="course" />
+                      <button
+                        onClick={() => enrollCourse(course)}
+                        type="button"
+                        className="btn btn-primary m-4"
+                      >
+                        Enroll
+                      </button>
+                      <button
+                        onClick={() => releaseCourse(course)}
+                        type="button"
+                        className="btn btn-primary m-4"
+                      >
+                        Release
+                      </button>
+                    </form>
+                    <ToastContainer />
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-    ) : (false) }
-    
+      ) : (
+        true
+      )}
     </>
   );
 };

@@ -48,6 +48,7 @@ const Edit = () => {
   };
 
   return (
+    <div className="container">
     <form onSubmit={handleSubmit} method="PUT">
       <div className="mb-3">
         <label for="name" className="col-form-label">
@@ -85,6 +86,7 @@ const Edit = () => {
         </Link>
       </div>
     </form>
+    </div>
   );
 };
 

@@ -21,15 +21,11 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarText">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <Link
-                className="nav-link active"
-                aria-current="page"
-                to="/"
-              >
+              <Link className="nav-link active" aria-current="page" to="/">
                 Home
               </Link>
             </li>
-             <li className="nav-item">
+            <li className="nav-item">
               <Link
                 className="nav-link active"
                 aria-current="page"
@@ -38,7 +34,7 @@ const Navbar = () => {
                 Programs
               </Link>
             </li>
-             {/* Teacher Dashboard */}
+            {/* Teacher Dashboard */}
             <li className="nav-item dropdown">
               <li
                 className="nav-link dropdown-toggle"
@@ -65,15 +61,15 @@ const Navbar = () => {
                     Create Course
                   </Link>
                 </li>
-                 <li>
+                <li>
                   <Link className="dropdown-item" to="/home">
-                     Courses
+                    Courses
                   </Link>
                 </li>
               </ul>
             </li>
             {/* Student Dashboard */}
-               <li className="nav-item dropdown">
+            <li className="nav-item dropdown">
               <li
                 className="nav-link dropdown-toggle"
                 to="/dashboard"
@@ -100,13 +96,13 @@ const Navbar = () => {
                 </li>
               </ul>
             </li>
-               <li className="nav-item">
+            <li className="nav-item">
               <Link
                 className="nav-link active"
                 aria-current="page"
                 to="/contact"
               >
-               Contact
+                Contact
               </Link>
             </li>
           </ul>

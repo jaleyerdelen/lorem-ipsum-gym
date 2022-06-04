@@ -2,10 +2,13 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import cookie from "react-cookies";
+import { useNavigate } from "react-router-dom"
 
 const Login = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -23,6 +26,10 @@ const Login = () => {
     })
       .then((res) => {
         cookie.save("token", res.data.token);
+        setTimeout(() => {
+          navigate("/")
+        }, 2000);
+        
       })
       .catch((err) => {
         console.log(err);
