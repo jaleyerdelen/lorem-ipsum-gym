@@ -74,7 +74,7 @@ exports.deleteCourse = async (req, res) => {
       course,
     });
   } catch (error) {
-    res.status(200).json({
+    res.status(400).json({
       status: "fail",
       error,
     });
@@ -105,6 +105,26 @@ exports.enrollCourse = async (req, res) => {
   }
 };
 
+exports.releaseCourse = async (req, res) => {
+  try {
+    const course = await Course.findById(req.body.course_id);
+    const user = await User.findById(req.user._id);
+      await user.courses.pull({ _id: req.body.course_id });
+      await user.save();
+      res.status(200).json({
+        message: "success",
+        user,
+      });
+ 
+    
+  } catch (error) {
+    res.status(400).json({
+      status: "error",
+      error,
+    });
+  }
+};
+
 exports.findCourse = async(req, res)=> {
 try {
   const course = await Course.find()
@@ -119,3 +139,4 @@ try {
   })
 }
 }
+

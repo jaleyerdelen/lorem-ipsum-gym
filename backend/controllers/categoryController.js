@@ -9,7 +9,7 @@ exports.createCategory = async (req, res) => {
     });
 
   } catch (error) {
-    res.status(200).json({
+    res.status(400).json({
       status: "fail",
       error,
     });
@@ -43,7 +43,7 @@ exports.getCategory = async (req, res) => {
       category,
     });
   } catch (error) {
-    res.status(200).json({
+    res.status(400).json({
       status: "fail",
       error,
     });
@@ -59,7 +59,7 @@ exports.deleteCategory = async (req, res) =>  {
       category
     })
   }catch (error) {
-    res.status(200).json({
+    res.status(400).json({
       message:"category can not be deleted",
       error
     })

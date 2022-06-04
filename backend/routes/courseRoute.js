@@ -13,5 +13,6 @@ router.route("/:slug").get(courseController.getCourse);
 router.route("/:slug").put(authMiddleware.secure, authController.userRole("admin", "teacher"),courseController.updateCourse);
 router.route("/:slug").delete(authMiddleware.secure, authController.userRole("admin", "teacher"), courseController.deleteCourse);
 router.route("/enroll").post(authMiddleware.secure, authController.userRole("student","admin", "teacher"),courseController.enrollCourse);
+router.route("/release").post(authMiddleware.secure, authController.userRole("student","admin", "teacher"),courseController.releaseCourse);
 
 module.exports = router;

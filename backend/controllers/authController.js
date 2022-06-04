@@ -38,7 +38,7 @@ exports.createUser = async (req, res) => {
     //    message: "User saved successfully",
     //  })
   } catch (error) {
-    res.status(200).json({
+    res.status(400).json({
       status: "error",
       error,
     });
@@ -53,7 +53,7 @@ exports.getAllUser = async (req, res) => {
       user,
     });
   } catch (error) {
-    res.status(200).json({
+    res.status(400).json({
       status: "fail",
       error,
     });
@@ -88,14 +88,14 @@ exports.loginUser = (req, res) => {
           ? sendToken(user, 200, req, res)
           : res.status(200).json({ message: "login failed" });
       } else {
-        res.status(200).json({
+        res.status(400).json({
           status: "fail",
           message: "user can not found",
         });
       }
     });
   } catch (error) {
-    res.status(200).json({
+    res.status(400).json({
       status: "fail",
       error: error,
     });
@@ -118,7 +118,7 @@ exports.userRole = (...userRole) => {
   return (req, res, next) => {
     userRole.includes(req.user.role)
       ? next()
-      : res.status(200).json({
+      : res.status(400).json({
           status: "unauthorize",
           message: "You are not allowed to",
         });
@@ -135,7 +135,7 @@ exports.deleteUser = async (req, res) => {
         user,
       });
     } else {
-      res.status(200).json({
+      res.status(400).json({
         status: "fail",
         message: "user not found",
       });
@@ -154,7 +154,7 @@ exports.contactGetUser = (req, res) => {
       status: "success",
     });
   } catch (err) {
-    res.status(200).json({
+    res.status(400).json({
       status: "fail",
       err,
     });
