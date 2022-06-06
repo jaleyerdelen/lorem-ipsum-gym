@@ -5,12 +5,13 @@ import cookie from "react-cookies";
 
 const Home = () => {
   const [courses, setCourses] = useState([""]);
-   const [profil, setProfil] = useState(false);
+  const [profil, setProfil] = useState(false);
+  const [deleted, setDeleted] = useState([""]);
 
   useEffect(() => {
     allCourse();
     profile()
-  }, []);
+  }, [deleted]);
 
   const allCourse = () => {
     const token = cookie.load("token");
@@ -33,7 +34,7 @@ const Home = () => {
           headers: { authorization: `Baerer ${token}` },
         }
       )
-      .then((res) => console.log(res.data));
+      .then((res) => setDeleted(res.data.course));
   };
 
    const profile = () => {
@@ -63,7 +64,7 @@ const Home = () => {
       <div className="container d-flex main-course row">
         {courses.map((course) => {
           return (
-            <div className="col-4">
+            <div className="col-4" key={course}>
               <div className="">
               {/* <Link to={`/courses/${course.slug}`}> */}
                 <h2>{course.name}</h2>

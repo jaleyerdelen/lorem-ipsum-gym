@@ -29,9 +29,10 @@ const CategoryEdit = () => {
   };
 
   return (
-    <div className="container">
+  <div className="container">
+    <div className="row">
       <form method="POST" onSubmit={handleSubmit}>
-        <div className="mb-3">
+        <div className="mb-3 col-3">
           <label for="text" className="form-label">
             Category Name
           </label>
@@ -44,7 +45,7 @@ const CategoryEdit = () => {
             id="text"
           />
         </div>
-        <div className="mb-3">
+        <div className="mb-3 col-3">
           <label for="text" className="form-label">
             Category Description
           </label>
@@ -67,6 +68,7 @@ const CategoryEdit = () => {
           </button>
         </Link>
       </form>
+    </div>
     </div>
   );
 };

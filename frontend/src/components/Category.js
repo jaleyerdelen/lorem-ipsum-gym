@@ -5,17 +5,17 @@ import cookie from "react-cookies";
 import { useNavigate } from "react-router-dom";
 
 const Category = () => {
-  const [category, setCategory] = useState([""]);
+  const [category, setCategory] = useState([]);
   const [isLoggin, setIsLogin] = useState(false);
   const [profil, setProfil] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    axe();
+    getCategory();
     profile();
   }, []);
 
-  const axe = () => {
+  const getCategory = () => {
     const token = cookie.load("token");
     if (token) {
       setIsLogin(true);
@@ -65,7 +65,7 @@ const Category = () => {
       .delete(`http://localhost:5000/category/${categor._id}`, {
         headers: { authorization: `Baerer ${token}` },
       })
-      .then((res) => console.log(res))
+       .then(() => getCategory())
       .catch((error) => console.log(error));
   };
 
@@ -84,7 +84,7 @@ const Category = () => {
           </div>
           {category.map((categor) => {
             return (
-              <div className="category-box col-4 mb-5">
+              <div key={categor} className="category-box col-4 mb-5">
                 {/* <Link className="link" to={`/category/${categor.slug}`}> */}
                 <h5>{categor.name}</h5>
                 <p>{categor.description}</p>
