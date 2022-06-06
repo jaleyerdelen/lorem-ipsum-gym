@@ -65,8 +65,9 @@ app.use("/auth", authRoute);
 
 
 app.get("/", (req, res) => {
-  console.log(req.headers["authorization"]);
-  res.send("hello world");
+  res.status(200).json({
+    message:"success"
+  })
 });
 
 
