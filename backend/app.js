@@ -62,7 +62,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
   res.status(200).json({
-    message: "success",
+    message: "success heroku and node",
   });
 });
 
