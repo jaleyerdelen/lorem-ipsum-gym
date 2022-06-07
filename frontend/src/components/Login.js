@@ -18,7 +18,7 @@ const Login = () => {
   const log = () => {
     axios({
       method: "post",
-      url: "http://localhost:5000/auth/login",
+      url: `${process.env.REACT_APP_API_URL}/auth/login`,
       data: {
         email: email,
         password: password,

@@ -11,7 +11,7 @@ const ClientPage = () => {
 
   const allCourse = () => {
     axios
-      .get("http://localhost:5000/courses/client")
+      .get(`${process.env.REACT_APP_API_URL}/courses/client`)
       .then((res) => setCourses(res.data.course))
       .catch((err) => console.log(err));
   };

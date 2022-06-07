@@ -15,7 +15,7 @@ const CategoryEdit = () => {
     const token = cookie.load("token");
     axios
       .post(
-        "http://localhost:5000/category",
+       `${process.env.REACT_APP_API_URL}/category`,
         {
           name: name,
           description: description,

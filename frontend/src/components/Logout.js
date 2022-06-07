@@ -24,7 +24,7 @@ const Logout = () => {
   const log = () => {
     console.log("buttona tıklandı");
     axios
-      .get("http://localhost:5000/auth/logout")
+      .get(`${process.env.REACT_APP_API_URL}/auth/logout`)
       .then((res) => {
         noti();
         setTimeout(() => {

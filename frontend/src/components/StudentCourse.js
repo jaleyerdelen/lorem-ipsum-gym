@@ -35,7 +35,7 @@ const StudentCourse = () => {
   const allCourse = () => {
     const token = cookie.load("token");
     axios
-      .get("http://localhost:5000/courses/", {
+      .get(`${process.env.REACT_APP_API_URL}/courses`, {
         headers: { authorization: `Baerer ${token}` },
       })
       .then((res) => setCourses(res.data.courses))
@@ -46,7 +46,7 @@ const StudentCourse = () => {
     const token = cookie.load("token");
     axios
       .post(
-        " http://localhost:5000/courses/enroll",
+        `${process.env.REACT_APP_API_URL}/courses/enroll`,
         {
           course_id: course._id,
         },
@@ -69,7 +69,7 @@ const StudentCourse = () => {
     const token = cookie.load("token");
     axios
       .post(
-        " http://localhost:5000/courses/release",
+        `${process.env.REACT_APP_API_URL}/courses/release`,
         {
           course_id: course._id,
         },
@@ -90,7 +90,7 @@ const StudentCourse = () => {
   const profiles = () => {
     const token = cookie.load("token");
     axios
-      .get(" http://localhost:5000/users/profile", {
+      .get(`${process.env.REACT_APP_API_URL}/users/profile`, {
         headers: { authorization: `Baerer ${token}` },
       })
       .then((res) => {

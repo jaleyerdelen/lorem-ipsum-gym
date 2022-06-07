@@ -9,7 +9,7 @@ const AdminPage = () => {
     const adminPage = () => {
       const token = cookie.load("token");
       axios
-        .get("http://localhost:5000/users", {
+        .get(`${process.env.REACT_APP_API_URL}/users`, {
           headers: { authorization: `Baerer ${token}` },
         })
         .then((res) => setAdmin(res.data.user))

@@ -24,7 +24,7 @@ const TeacherDashboard = () => {
     const token = cookie.load("token");
     axios
       .post(
-        "http://localhost:5000/courses/",
+       `${process.env.REACT_APP_API_URL}/courses`,
         {
           name: name,
           description: description,
@@ -39,7 +39,7 @@ const TeacherDashboard = () => {
   const profile = () => {
     const token = cookie.load("token");
     axios
-      .get(" http://localhost:5000/users/profile", {
+      .get(`${process.env.REACT_APP_API_URL}/users/profile`, {
         headers: { authorization: `Baerer ${token}` },
       })
       .then((res) => {

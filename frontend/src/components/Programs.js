@@ -10,7 +10,7 @@ const Programs = () => {
 
   const allCourse = () => {
     axios
-      .get("http://localhost:5000/category/program")
+      .get(`${process.env.REACT_APP_API_URL}/category/program`)
       .then((res) => setCategory(res.data.category))
       .catch((err) => console.log(err));
   };

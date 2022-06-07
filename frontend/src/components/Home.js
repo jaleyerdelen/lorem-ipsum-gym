@@ -16,7 +16,7 @@ const Home = () => {
   const allCourse = () => {
     const token = cookie.load("token");
     axios
-      .get("http://localhost:5000/courses/", {
+      .get(`${process.env.REACT_APP_API_URL}/courses`, {
         headers: { authorization: `Baerer ${token}` },
       })
       .then((res) => setCourses(res.data.courses))
@@ -28,7 +28,7 @@ const Home = () => {
     const token = cookie.load("token");
     axios
       .delete(
-        ` http://localhost:5000/courses/${course.slug}`,
+        ` ${process.env.REACT_APP_API_URL}/courses/${course.slug}`,
 
         {
           headers: { authorization: `Baerer ${token}` },
@@ -40,7 +40,7 @@ const Home = () => {
    const profile = () => {
     const token = cookie.load("token");
     axios
-      .get(" http://localhost:5000/users/profile", {
+      .get(`${process.env.REACT_APP_API_URL}/users/profile`, {
         headers: { authorization: `Baerer ${token}` },
       })
       .then((res) => {

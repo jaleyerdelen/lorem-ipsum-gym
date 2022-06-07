@@ -16,7 +16,7 @@ const StudentDashboard = () => {
   const profile = () => {
     const token = cookie.load("token");
     axios
-      .get(" http://localhost:5000/users/profile", {
+      .get(`${process.env.REACT_APP_API_URL}/users/profile`, {
         headers: { authorization: `Baerer ${token}` },
       })
       .then((res) => setStudent(res.data.profile.courses))
@@ -26,7 +26,7 @@ const StudentDashboard = () => {
   const profiles = () => {
     const token = cookie.load("token");
     axios
-      .get(" http://localhost:5000/users/profile", {
+      .get(`${process.env.REACT_APP_API_URL}/users/profile`, {
         headers: { authorization: `Baerer ${token}` },
       })
       .then((res) => {

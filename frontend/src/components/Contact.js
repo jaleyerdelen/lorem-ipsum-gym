@@ -13,7 +13,7 @@ const Contact = () => {
 
   const contact = () => {
     axios
-      .post("http://localhost:5000/auth/contact", {
+      .post(`${process.env.REACT_APP_API_URL}/auth/contact`, {
         name: name,
         email: email,
         message: message,

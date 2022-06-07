@@ -12,7 +12,7 @@ const CategoryDetail = () => {
       const token = cookie.load("token");
     console.log("fed",token);
       axios
-        .get(`http://localhost:5000/category/${slug}`, {
+        .get(`${process.env.REACT_APP_API_URL}/category/${slug}`, {
         headers: { authorization: `Baerer ${token}` },
       })
         .then((res) => setCategor(res.data.category))

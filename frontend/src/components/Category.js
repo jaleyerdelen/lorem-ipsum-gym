@@ -23,7 +23,7 @@ const Category = () => {
       setIsLogin(false);
     }
     axios
-      .get("http://localhost:5000/category", {
+      .get(`${process.env.REACT_APP_API_URL}/category`, {
         headers: { authorization: `Baerer ${token}` },
       })
       .then((res) => setCategory(res.data.category))
@@ -38,7 +38,7 @@ const Category = () => {
   const profile = () => {
     const token = cookie.load("token");
     axios
-      .get(" http://localhost:5000/users/profile", {
+      .get(`${process.env.REACT_APP_API_URL}/users/profile`, {
         headers: { authorization: `Baerer ${token}` },
       })
       .then((res) => {
@@ -62,7 +62,7 @@ const Category = () => {
   const deleteCategory = (categor) => {
     const token = cookie.load("token");
     axios
-      .delete(`http://localhost:5000/category/${categor._id}`, {
+      .delete(`${process.env.REACT_APP_API_URL}/category/${categor._id}`, {
         headers: { authorization: `Baerer ${token}` },
       })
        .then(() => getCategory())

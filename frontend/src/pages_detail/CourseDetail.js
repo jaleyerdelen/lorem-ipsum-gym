@@ -11,7 +11,7 @@ const CourseDetail = () => {
     const allCourse = () => {
        const token = cookie.load("token");
       axios
-        .get(`http://localhost:5000/courses/${slug}`, {
+        .get(`${process.env.REACT_APP_API_URL}/courses/${slug}`, {
         headers: { authorization: `Baerer ${token}` },
       })
         .then((res) => setCourse(res.data.course))
