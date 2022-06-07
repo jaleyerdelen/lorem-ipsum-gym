@@ -17,6 +17,8 @@ const app = express();
 const cors = require("cors");
 
 //middlewares
+express()
+app.use(cors({origin: "https://lorem-ipsum-gym.netlify.app"}))
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.use(cookieParser());
